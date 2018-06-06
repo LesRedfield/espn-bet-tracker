@@ -1,0 +1,17 @@
+{
+  "version": "0.0.0",
+  "name": "espn-bet-tracker",
+  "manifest_version": 2,
+  "description": "Chrome extension for espn-bet-tracker",
+  "browser_action": {
+    "default_title": "ESPN Bet Tracker"
+  },
+  "web_accessible_resources": [
+    "inject.html"
+  ],
+  "background": {
+    "page": "background.html"
+  },
+  "permissions": [ "contextMenus", "management", "tabs", "storage", "http://www.espn.com/*" ],
+  "content_security_policy": "default-src 'self'; script-src 'self' http://localhost:3000 https://localhost:3000 'unsafe-eval'; connect-src http://localhost:3000 https://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' data:;"
+}
