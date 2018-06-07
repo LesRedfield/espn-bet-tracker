@@ -14,6 +14,24 @@ export default class MainSection extends Component {
     super(props, context);
   }
 
+  componentDidMount() {
+    const teamAddButtons = document.getElementsByClassName('team-add-button');
+
+    Array.from(teamAddButtons).forEach(teamAddButton => {
+
+      const teamName = teamAddButton.dataset.teamName;
+
+      const gameTable = teamAddButton.parentElement.parentElement.parentElement
+        .parentElement.parentElement.parentElement;
+
+      teamAddButton.addEventListener('click', this.handleSave.bind(this, teamName, gameTable));
+    });
+  }
+
+  handleSave = (teamName, gameTable) => {
+    this.props.actions.addGame(teamName, gameTable);
+  }
+
   render() {
     const { games, actions } = this.props;
 

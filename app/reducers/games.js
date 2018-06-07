@@ -1,17 +1,14 @@
 import * as ActionTypes from '../constants/ActionTypes';
 
-const initialState = [{
-  id: 0,
-  teamName: 'Team 1',
-  gameState: 'Mid 1st'
-}];
+const initialState = [];
 
 const actionsMap = {
   [ActionTypes.ADD_GAME](state, action) {
     return [{
       id: state.reduce((maxId, game) => Math.max(game.id, maxId), -1) + 1,
       teamName: action.teamName,
-      gameState: action.gameState
+      gameTable: action.gameTable,
+      gameState: 'dateTime'
     }, ...state];
   },
   [ActionTypes.DELETE_GAME](state, action) {
