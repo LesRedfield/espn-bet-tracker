@@ -37,7 +37,7 @@ export default class MainSection extends Component {
 
     return (
       <section className={style.main}>
-        <h1>Wagers</h1>
+        <h1>New Wagers</h1>
         <ul className={style.gameList}>
           {games.map(game =>
             <GameItem key={game.id} game={game} {...actions} />
