@@ -8,6 +8,6 @@ export function deleteGame(id) {
   return { type: types.DELETE_GAME, id };
 }
 
-export function editGame(id, gameState) {
-  return { type: types.EDIT_GAME, id, gameState };
+export function editGame(id, dateTime) {
+  return { type: types.EDIT_GAME, id, dateTime };
 }

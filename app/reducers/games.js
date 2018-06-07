@@ -8,7 +8,7 @@ const actionsMap = {
       id: state.reduce((maxId, game) => Math.max(game.id, maxId), -1) + 1,
       teamName: action.teamName,
       gameTable: action.gameTable,
-      gameState: 'dateTime'
+      dateTime: 'dateTime'
     }, ...state];
   },
   [ActionTypes.DELETE_GAME](state, action) {
@@ -19,7 +19,7 @@ const actionsMap = {
   [ActionTypes.EDIT_GAME](state, action) {
     return state.map(game =>
       (game.id === action.id ?
-        Object.assign({}, game, { gameState: action.gameState }) :
+        Object.assign({}, game, { dateTime: action.dateTime }) :
         game)
     );
   }

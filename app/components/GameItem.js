@@ -13,6 +13,20 @@ export default class GameItem extends Component {
     super(props, context);
   }
 
+  componentDidMount() {
+    const dateTimeContainer = this.props.game.gameTable.getElementsByClassName('date-time')[0];
+
+    const config = { attributes: true, childList: true };
+
+    const id = this.props.game.id;
+
+    const oldDateTime = this.props.game.dateTime;
+
+    if (oldDateTime === 'dateTime') {
+      this.props.editGame(id, dateTimeContainer.innerText);
+    }
+  }
+
   handleDelete = () => {
     const { game, deleteGame } = this.props;
     deleteGame(game.id);
@@ -25,7 +39,7 @@ export default class GameItem extends Component {
       <div className={style.view}>
         <label>
           <span>{ game.teamName }</span>
-          <span>{ game.gameState }</span>
+          <span>{ game.dateTime }</span>
         </label>
         <button
           className={style.destroy}
