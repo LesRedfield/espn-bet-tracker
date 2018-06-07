@@ -61,21 +61,21 @@ export default class GameItem extends Component {
     const { game } = this.props;
 
     const element = (
-      <div className={style.view}>
+      <div className={ style.view }>
         <label>
           <span>{ game.teamName }</span>
           <span>{ game.dateTime }</span>
         </label>
         <button
-          className={style.destroy}
-          onClick={this.handleDelete}
+          className={ style.destroy }
+          onClick={ this.handleDelete }
         />
       </div>
     );
 
 
     return (
-      <li>
+      <li className={ style.normal }>
         {element}
       </li>
     );
