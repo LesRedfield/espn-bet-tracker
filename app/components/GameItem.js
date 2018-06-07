@@ -13,16 +13,6 @@ export default class GameItem extends Component {
     super(props, context);
   }
 
-  handleSave = (text) => {
-    const { game, deleteGame, editGame } = this.props;
-    if (text.length === 0) {
-      deleteGame(game.id);
-    } else {
-      editGame(game.id, text);
-    }
-    this.setState({ editing: false });
-  };
-
   handleDelete = () => {
     const { game, deleteGame } = this.props;
     deleteGame(game.id);
@@ -34,7 +24,8 @@ export default class GameItem extends Component {
     const element = (
       <div className={style.view}>
         <label>
-          {game.text}
+          <span>{ game.teamName }</span>
+          <span>{ game.gameState }</span>
         </label>
         <button
           className={style.destroy}

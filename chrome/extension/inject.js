@@ -14,6 +14,20 @@ window.addEventListener('load', () => {
 
   scoreboardPage.prepend(injectDOM);
 
+  const teamNameAbbrevContainers = document.getElementsByClassName('sb-team-abbrev');
+
+  Array.from(teamNameAbbrevContainers).forEach((teamNameAbbrevContainer, idx) => {
+    const box = document.createElement('button');
+    box.className = "team-add-button";
+    box.id = "team-add-button-" + (idx + 1);
+
+    box.style.marginLeft = '10px';
+    box.innerText = '+';
+
+    teamNameAbbrevContainer.parentElement.parentElement.appendChild(box);
+
+  });
+
   chrome.storage.local.get('state', (obj) => {
     const { state } = obj;
     const initialState = JSON.parse(state || '{}');
