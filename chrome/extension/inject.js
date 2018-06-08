@@ -14,20 +14,24 @@ window.addEventListener('load', () => {
 
   scoreboardPage.prepend(injectDOM);
 
-  const teamNameAbbrevContainers = document.getElementsByClassName('sb-team-abbrev');
+  const gameContainers = document.getElementById('events')
+                                 .getElementsByClassName('scoreboard');
 
-  Array.from(teamNameAbbrevContainers).forEach((teamNameAbbrevContainer, idx) => {
-    const box = document.createElement('button');
-    box.className = "team-add-button";
-    box.id = "team-add-button-" + (idx + 1);
+  Array.from(gameContainers).forEach((gameContainer, idx) => {
+    const gameAddButton = document.createElement('button');
+    gameAddButton.className = "game-add-button";
+    gameAddButton.id = "game-add-button-" + (idx + 1);
 
-    box.style.marginLeft = '10px';
-    box.innerText = '+';
+    gameAddButton.style.marginLeft = '10px';
+    gameAddButton.innerText = '+';
 
-    const teamName = teamNameAbbrevContainer.parentElement.children[0].innerText;
-    box.dataset.teamName = teamName;
+    const gameId = gameContainer.id;
+    gameAddButton.dataset.gameId = gameId;
 
-    teamNameAbbrevContainer.parentElement.parentElement.appendChild(box);
+    gameContainer.getElementsByClassName('away')[0]
+                 .getElementsByClassName('sb-team-short')[0]
+                 .parentElement.parentElement
+                 .appendChild(gameAddButton);
   });
 
 

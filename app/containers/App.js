@@ -16,7 +16,7 @@ import style from './App.css';
 export default class App extends Component {
 
   static propTypes = {
-    games: PropTypes.array.isRequired,
+    games: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired
   };
 

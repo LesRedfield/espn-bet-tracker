@@ -1,28 +1,31 @@
 import * as ActionTypes from '../constants/ActionTypes';
 
-const initialState = [];
+const initialState = {};
 
 const actionsMap = {
   [ActionTypes.ADD_GAME](state, action) {
-    return [{
-      id: state.reduce((maxId, game) => Math.max(game.id, maxId), -1) + 1,
-      teamName: action.teamName,
-      gameTable: action.gameTable,
-      dateTime: 'dateTime'
-    }, ...state];
+    return {
+      ...state,
+      [action.gameId]: {
+        id: action.gameId
+      }
+    }
   },
   [ActionTypes.DELETE_GAME](state, action) {
-    return state.filter(game =>
-      game.id !== action.id
-    );
+    return _.omit(state, action.id);
   },
   [ActionTypes.EDIT_GAME](state, action) {
     return state.map(game =>
       (game.id === action.id ?
-        Object.assign({}, game, { dateTime: action.dateTime }) :
-        game)
+        Object.assign({}, game, {
+          gameSate: action.gameState
+        }) : game
+      )
     );
-  }
+  },
+  [ActionTypes.UPDATE_DATE_TIME](state, action) {
+    return { ...state, [action.id]: action.newGame };
+  },
 };
 
 export default function games(state = initialState, action) {

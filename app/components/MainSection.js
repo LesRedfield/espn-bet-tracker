@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import GameItem from './GameItem';
 import style from './MainSection.css';
-
+import _ from "lodash";
 
 export default class MainSection extends Component {
 
   static propTypes = {
-    games: PropTypes.array.isRequired,
+    games: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired
   };
 
@@ -15,33 +15,37 @@ export default class MainSection extends Component {
   }
 
   componentDidMount() {
-    const teamAddButtons = document.getElementsByClassName('team-add-button');
+    const gameAddButtons = document.getElementsByClassName('game-add-button');
 
-    Array.from(teamAddButtons).forEach(teamAddButton => {
+    Array.from(gameAddButtons).forEach(gameAddButton => {
 
-      const teamName = teamAddButton.dataset.teamName;
+      const gameId = gameAddButton.dataset.gameId;
 
-      const gameTable = teamAddButton.parentElement.parentElement.parentElement
-        .parentElement.parentElement.parentElement;
-
-      teamAddButton.addEventListener('click', this.handleSave.bind(this, teamName, gameTable));
+      gameAddButton.addEventListener('click', this.handleSave.bind(this, gameId));
     });
   }
 
-  handleSave = (teamName, gameTable) => {
-    this.props.actions.addGame(teamName, gameTable);
+  handleSave = (gameId) => {
+    // const teamNames = gameTable.getElementsByClassName('sb-team-short');
+    //
+    // const awayTeamName = teamNames[0].innerText;
+    // const homeTeamName = teamNames[1].innerText;
+
+    this.props.actions.addGame(gameId);
   }
 
   render() {
     const { games, actions } = this.props;
 
     return (
-      <section className={style.main}>
+      <section className={ style.main }>
         <h1>New Wagers</h1>
-        <ul className={style.gameList}>
-          {games.map(game =>
-            <GameItem key={game.id} game={game} {...actions} />
-          )}
+        <ul className={ style.gameList }>
+          {
+            _.map(games, (game) =>
+              <GameItem key={ game.id } game={ game } { ...actions } />
+            )
+          }
         </ul>
       </section>
     );
