@@ -87,6 +87,8 @@ export default class GameItem extends Component {
     const element = (
       <div className={ style.view }>
         <label>
+          <span>{ game.id }</span>
+
           <span>{ awayTeamName }</span>
           <span>{ awayTeamScore }</span>
 

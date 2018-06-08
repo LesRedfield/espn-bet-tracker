@@ -15,23 +15,15 @@ export default class MainSection extends Component {
   }
 
   componentDidMount() {
-    const gameAddButtons = document.getElementsByClassName('game-add-button');
+    const gameContainers = document.getElementById('events').
+                                    getElementsByClassName('scoreboard');
 
-    Array.from(gameAddButtons).forEach(gameAddButton => {
+    Array.from(gameContainers).forEach(function(gameContainer) {
 
-      const gameId = gameAddButton.dataset.gameId;
+      const gameId = gameContainer.id;
 
-      gameAddButton.addEventListener('click', this.handleSave.bind(this, gameId));
-    });
-  }
-
-  handleSave = (gameId) => {
-    // const teamNames = gameTable.getElementsByClassName('sb-team-short');
-    //
-    // const awayTeamName = teamNames[0].innerText;
-    // const homeTeamName = teamNames[1].innerText;
-
-    this.props.actions.addGame(gameId);
+      this.props.actions.addGame(gameId);
+    }, this);
   }
 
   render() {
@@ -39,7 +31,7 @@ export default class MainSection extends Component {
 
     return (
       <section className={ style.main }>
-        <h1>New Wagers</h1>
+        <h1>Today's Games</h1>
         <ul className={ style.gameList }>
           {
             _.map(games, (game) =>

@@ -14,25 +14,25 @@ window.addEventListener('load', () => {
 
   scoreboardPage.prepend(injectDOM);
 
-  const gameContainers = document.getElementById('events')
-                                 .getElementsByClassName('scoreboard');
-
-  Array.from(gameContainers).forEach((gameContainer, idx) => {
-    const gameAddButton = document.createElement('button');
-    gameAddButton.className = "game-add-button";
-    gameAddButton.id = "game-add-button-" + (idx + 1);
-
-    gameAddButton.style.marginLeft = '10px';
-    gameAddButton.innerText = '+';
-
-    const gameId = gameContainer.id;
-    gameAddButton.dataset.gameId = gameId;
-
-    gameContainer.getElementsByClassName('away')[0]
-                 .getElementsByClassName('sb-team-short')[0]
-                 .parentElement.parentElement
-                 .appendChild(gameAddButton);
-  });
+  // const gameContainers = document.getElementById('events')
+  //                                .getElementsByClassName('scoreboard');
+  //
+  // Array.from(gameContainers).forEach((gameContainer, idx) => {
+  //   const gameAddButton = document.createElement('button');
+  //   gameAddButton.className = "game-add-button";
+  //   gameAddButton.id = "game-add-button-" + (idx + 1);
+  //
+  //   gameAddButton.style.marginLeft = '10px';
+  //   gameAddButton.innerText = '+';
+  //
+  //   const gameId = gameContainer.id;
+  //   gameAddButton.dataset.gameId = gameId;
+  //
+  //   gameContainer.getElementsByClassName('away')[0]
+  //                .getElementsByClassName('sb-team-short')[0]
+  //                .parentElement.parentElement
+  //                .appendChild(gameAddButton);
+  // });
 
 
   // (FOR DEV) => clear state in local storage each page reload
