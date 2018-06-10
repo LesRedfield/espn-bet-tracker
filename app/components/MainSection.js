@@ -20,9 +20,9 @@ export default class MainSection extends Component {
 
     Array.from(gameContainers).forEach(function(gameContainer) {
 
-      const gameId = gameContainer.id;
+      const id = gameContainer.id;
 
-      this.props.actions.addGame(gameId);
+      this.props.actions.addGame(id);
     }, this);
   }
 

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import GameAttrib from './GameAttrib';
 import style from './GameItem.css';
 
 export default class GameItem extends Component {
@@ -6,7 +7,8 @@ export default class GameItem extends Component {
   static propTypes = {
     game: PropTypes.object.isRequired,
     editGame: PropTypes.func.isRequired,
-    deleteGame: PropTypes.func.isRequired
+    deleteGame: PropTypes.func.isRequired,
+    updateGameAttrib: PropTypes.func.isRequired
   };
 
   constructor(props, context) {
@@ -28,22 +30,14 @@ export default class GameItem extends Component {
   }
 
   componentDidMount() {
-    const id = this.props.game.id;
+    // const id = this.props.game.id;
+    //
+    // const dateTimeContainer = document.getElementById(id).getElementsByClassName('date-time')[0];
+    //
+    // const config = { attributes: true, childList: true };
+    //
+    // const oldDateTime = this.props.game.dateTime;
 
-    const dateTimeContainer = document.getElementById(id).getElementsByClassName('date-time')[0];
-
-    const config = { attributes: true, childList: true };
-
-    const oldDateTime = this.props.game.dateTime;
-
-    if (!oldDateTime) {
-
-      const newGame = { ...this.props.game, ['dateTime']: dateTimeContainer.innerText };
-
-      // debugger
-
-      this.props.updateDateTime(id, newGame);
-    }
 
     // // Callback function to execute when mutations are observed
     // const callback = function(id, oldDateTime, mutationsList) {
@@ -78,11 +72,17 @@ export default class GameItem extends Component {
   };
 
   render() {
-    const { game } = this.props;
+    const { game, updateGameAttrib } = this.props;
     const { awayTeamName, homeTeamName } = this.state;
-    const awayTeamScore = this.props.game.awayTeamScore || '-';
-    const homeTeamScore = this.props.game.homeTeamScore || '-';
-    const dateTime = this.props.game.dateTime || '-';
+    const awayScore = game['away'] || '-';
+    const homeScore = game['home'] || '-';
+    const dateTime = game['date-time'] || '-';
+    const gameStarted = document.getElementById(game.id).classList.contains('live') ||
+                        document.getElementById(game.id).classList.contains('final');
+
+    // const gameStarted = false;
+
+    // debugger
 
     const element = (
       <div className={ style.view }>
@@ -90,12 +90,34 @@ export default class GameItem extends Component {
           <span>{ game.id }</span>
 
           <span>{ awayTeamName }</span>
-          <span>{ awayTeamScore }</span>
+          <span>
+            { gameStarted &&
+                <GameAttrib
+                  id={ game.id }
+                  attrib="away"
+                  value={ awayScore }
+                  updateGameAttrib={ updateGameAttrib } />
+            }
+          </span>
 
           <span>{ homeTeamName }</span>
-          <span>{ homeTeamScore }</span>
+          <span>
+            { gameStarted &&
+                <GameAttrib
+                  id={ game.id }
+                  attrib="home"
+                  value={ homeScore }
+                  updateGameAttrib={ updateGameAttrib } />
+            }
+          </span>
 
-          <span>{ dateTime }</span>
+          <span>
+            <GameAttrib
+              id={ game.id }
+              attrib="date-time"
+              value={ dateTime }
+              updateGameAttrib={ updateGameAttrib } />
+          </span>
 
         </label>
         <button
@@ -108,7 +130,7 @@ export default class GameItem extends Component {
 
     return (
       <li className={ style.normal }>
-        {element}
+        { element }
       </li>
     );
   }

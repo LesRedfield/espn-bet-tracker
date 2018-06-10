@@ -6,8 +6,8 @@ const actionsMap = {
   [ActionTypes.ADD_GAME](state, action) {
     return {
       ...state,
-      [action.gameId]: {
-        id: action.gameId
+      [action.id]: {
+        id: action.id
       }
     }
   },
@@ -26,6 +26,16 @@ const actionsMap = {
   [ActionTypes.UPDATE_DATE_TIME](state, action) {
     return { ...state, [action.id]: action.newGame };
   },
+  [ActionTypes.UPDATE_GAME_ATTRIB](state, action) {
+    // debugger
+    return {
+      ...state,
+      [action.id]: {
+        ...state[action.id],
+        [action.attrib]: action.value
+      }
+    };
+  }
 };
 
 export default function games(state = initialState, action) {
