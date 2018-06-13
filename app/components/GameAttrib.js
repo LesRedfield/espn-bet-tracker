@@ -35,6 +35,7 @@ export default class GameAttrib extends Component {
 
     // debugger
 
+    // account for date-time and score elements being nested at different levels of DOM
     const valueContainer = attrib === 'date-time' ? valueParent :
       valueParent.getElementsByClassName('total')[0].children[0];
 
@@ -63,6 +64,13 @@ export default class GameAttrib extends Component {
 
 
         if (mutation.type == 'childList') {
+          if (this.props.attrib !== 'date-time') {
+            console.log(mutation);
+            console.log(mutationsList);
+
+
+            debugger
+          }
           // debugger
 
           // console.log('A child node has been added or removed.');

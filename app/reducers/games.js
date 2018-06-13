@@ -4,10 +4,13 @@ const initialState = {};
 
 const actionsMap = {
   [ActionTypes.ADD_GAME](state, action) {
+    // debugger
     return {
       ...state,
       [action.id]: {
-        id: action.id
+        id: action.id,
+        awayTeam: action.awayTeam,
+        homeTeam: action.homeTeam
       }
     }
   },

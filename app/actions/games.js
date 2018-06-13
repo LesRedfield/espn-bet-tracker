@@ -1,7 +1,7 @@
 import * as types from '../constants/ActionTypes';
 
-export function addGame(id) {
-  return { type: types.ADD_GAME, id };
+export function addGame(id, awayTeam, homeTeam) {
+  return { type: types.ADD_GAME, id, awayTeam, homeTeam };
 }
 
 export function deleteGame(id) {
