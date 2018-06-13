@@ -15,22 +15,48 @@ export default class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = { addingWager: false };
+    this.state = {
+      addingWager: 'button',
+      gameId: '0',
+      team: 'none',
+      pointSpread: 0,
+      odds: 0,
+      amount: 0
+    };
   }
 
-  toggleShowAddWagers = () => {
+  toggleShowAddWagers = (status) => {
     console.log('toggling');
     // debugger
-    this.setState(prevState => {
-      return { addingWager: !prevState.addingWager };
-    });
+    this.setState({ addingWager: status });
 
   }
 
-  handleAddWager = (gameId, team, pointSpread, odds, amount) => {
+  handleAddTeam = (gameId, team) => {
+    this.setState({
+      gameId,
+      team
+    });
+
+    this.toggleShowAddWagers('wagerForm');
+  }
+
+  handleAddWager = (e) => {
+    const { gameId, team, pointSpread, odds, amount } = this.state;
     console.log('add game ' + gameId);
     this.props.wagerActions.addWager(gameId, team, pointSpread, odds, amount);
-    this.toggleShowAddWagers();
+    this.toggleShowAddWagers('button');
+    e.preventDefault();
+  }
+
+  handleInputChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
   }
 
   componentDidMount() {
@@ -50,7 +76,7 @@ export default class Dashboard extends Component {
 
     // debugger
 
-    const element = this.state.addingWager ? (
+    const element = this.state.addingWager === 'games' ? (
       <div>
 
 
@@ -58,7 +84,7 @@ export default class Dashboard extends Component {
           <h1>
             Choose a game to add
             <button
-              onClick={ this.toggleShowAddWagers }>
+              onClick={ this.toggleShowAddWagers.bind(this, 'button') }>
               X
             </button>
           </h1>
@@ -67,7 +93,7 @@ export default class Dashboard extends Component {
               _.map(games, (game, idx) =>
                 <div
                   key={ idx }
-                  onClick={ this.handleAddWager.bind(this, game.id, game.awayTeam, 0, 150, 100) }>
+                  onClick={ this.handleAddTeam.bind(this, game.id, game.awayTeam) }>
                   <span>
                     { game.awayTeam + ' vs ' + game.homeTeam }
                   </span>
@@ -77,10 +103,43 @@ export default class Dashboard extends Component {
           </ul>
         </div>
       </div>
+    ) : this.state.addingWager === 'wagerForm' ? (
+      <div>
+        <form onSubmit={ this.handleAddWager }>
+          <label>
+            Point Spread:
+            <input
+              name="pointSpread"
+              type="number"
+              value={ this.state.pointSpread }
+              onChange={ this.handleInputChange } />
+          </label>
+          <br />
+          <label>
+            Odds:
+            <input
+              name="odds"
+              type="number"
+              value={ this.state.odds }
+              onChange={ this.handleInputChange } />
+          </label>
+          <br />
+          <label>
+            Amount: $
+            <input
+              name="amount"
+              type="number"
+              value={ this.state.amount }
+              onChange={ this.handleInputChange } />
+          </label>
+          <br />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
     ) : (
       <button
         className={ style.addWager }
-        onClick={ this.toggleShowAddWagers } >
+        onClick={ this.toggleShowAddWagers.bind(this, 'games') } >
         <span>
           ADD WAGER
         </span>
