@@ -36,12 +36,12 @@ export default class MainSection extends Component {
   }
 
   render() {
-    const { games, wagers, wagerActions } = this.props;
+    const { games, wagers, gameActions, wagerActions } = this.props;
 
     return (
       <section className={ style.main }>
         <Dashboard games={ games } wagers={ wagers } wagerActions={ wagerActions }/>
-        {/*<GamesList games={ games } actions={ actions }/>*/}
+        <GamesList games={ games } gameActions={ gameActions }/>
 
       </section>
     );

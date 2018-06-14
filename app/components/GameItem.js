@@ -29,6 +29,10 @@ export default class GameItem extends Component {
     };
   }
 
+  shouldComponentUpdate(nextProps) {
+    return (JSON.stringify(this.props.game) !== JSON.stringify(nextProps.game));
+  }
+
   componentDidMount() {
     // const id = this.props.game.id;
     //
@@ -84,6 +88,13 @@ export default class GameItem extends Component {
 
     // debugger
 
+    console.log(game);
+
+    // if (dateTime === '-') {
+    //   console.log('dateTime is -!');
+    //   console.log(game);
+    // }
+
     const element = (
       <div className={ style.view }>
         <label>
@@ -96,7 +107,8 @@ export default class GameItem extends Component {
                   id={ game.id }
                   attrib="away"
                   value={ awayScore }
-                  updateGameAttrib={ updateGameAttrib } />
+                  updateGameAttrib={ updateGameAttrib }
+                />
             }
           </span>
 
@@ -107,7 +119,8 @@ export default class GameItem extends Component {
                   id={ game.id }
                   attrib="home"
                   value={ homeScore }
-                  updateGameAttrib={ updateGameAttrib } />
+                  updateGameAttrib={ updateGameAttrib }
+                />
             }
           </span>
 
@@ -116,7 +129,8 @@ export default class GameItem extends Component {
               id={ game.id }
               attrib="date-time"
               value={ dateTime }
-              updateGameAttrib={ updateGameAttrib } />
+              updateGameAttrib={ updateGameAttrib }
+            />
           </span>
 
         </label>

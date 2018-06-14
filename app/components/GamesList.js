@@ -7,7 +7,7 @@ export default class GamesList extends Component {
 
   static propTypes = {
     games: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
+    gameActions: PropTypes.object.isRequired
   };
 
   constructor(props, context) {
@@ -32,7 +32,7 @@ export default class GamesList extends Component {
   }
 
   render() {
-    const { games, actions } = this.props;
+    const { games, gameActions } = this.props;
 
     // debugger
 
@@ -42,7 +42,7 @@ export default class GamesList extends Component {
         <ul className={ style.gameList }>
           {
             _.map(games, (game) =>
-              <GameItem key={ game.id } game={ game } { ...actions } />
+              <GameItem key={ game.id } game={ game } { ...gameActions } />
             )
           }
         </ul>
