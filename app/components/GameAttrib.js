@@ -52,10 +52,6 @@ export default class GameAttrib extends Component {
       updateGameAttrib(id, attrib, newValue);
     }
 
-    // * * * * *
-    //need to fix observer callback for scores, addedNodes is empty (works for dateTime)
-    // * * * * *
-
     // Callback function to execute when mutations are observed
     const callback = function(id, value, mutationsList) {
       // debugger
@@ -64,17 +60,6 @@ export default class GameAttrib extends Component {
 
 
         if (mutation.type == 'childList') {
-          // if (this.props.attrib !== 'date-time') {
-          if (true) {
-            // console.log(this.props.attrib);
-            // console.log(this.state);
-            // console.log(mutationsList[1].target.innerText);
-
-
-            // debugger
-          }
-          // debugger
-
           // console.log('A child node has been added or removed.');
           // const newValue = this.props.attrib === 'date-time' ?
           //   mutationsList[1].addedNodes[0].nodeValue :

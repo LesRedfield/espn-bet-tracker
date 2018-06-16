@@ -30,7 +30,6 @@ const actionsMap = {
     return { ...state, [action.id]: action.newGame };
   },
   [ActionTypes.UPDATE_GAME_ATTRIB](state, action) {
-    // debugger
     return {
       ...state,
       [action.id]: {

@@ -2,10 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import GameAttrib from './GameAttrib';
 import style from './GameItem.css';
 
+
 export default class GameItem extends Component {
 
   static propTypes = {
     game: PropTypes.object.isRequired,
+    winP: PropTypes.object.isRequired,
     editGame: PropTypes.func.isRequired,
     deleteGame: PropTypes.func.isRequired,
     updateGameAttrib: PropTypes.func.isRequired
@@ -34,39 +36,7 @@ export default class GameItem extends Component {
   }
 
   componentDidMount() {
-    // const id = this.props.game.id;
-    //
-    // const dateTimeContainer = document.getElementById(id).getElementsByClassName('date-time')[0];
-    //
-    // const config = { attributes: true, childList: true };
-    //
-    // const oldDateTime = this.props.game.dateTime;
 
-
-    // // Callback function to execute when mutations are observed
-    // const callback = function(id, oldDateTime, mutationsList) {
-    //   for(let mutation of mutationsList) {
-    //     // const removedDateTime = mutationsList[0].removedNodes[0].nodeValue;
-    //     const addedDateTime = mutationsList[1].addedNodes[0].nodeValue;
-    //
-    //     if (mutation.type == 'childList') {
-    //       // console.log('A child node has been added or removed.');
-    //
-    //       if (oldDateTime !== addedDateTime) {
-    //         this.props.editGame(id, addedDateTime);
-    //       }
-    //     }
-    //     else if (mutation.type == 'attributes') {
-    //       // console.log('The ' + mutation.attributeName + ' attribute was modified.');
-    //     }
-    //   }
-    // };
-    //
-    // // Create an observer instance linked to the callback function
-    // const observer = new MutationObserver(callback.bind(this, id, oldDateTime));
-    //
-    // // Start observing the target node for configured mutations
-    // observer.observe(dateTimeContainer, config);
   }
 
   handleDelete = () => {
@@ -76,7 +46,7 @@ export default class GameItem extends Component {
   };
 
   render() {
-    const { game, updateGameAttrib } = this.props;
+    const { game, updateGameAttrib, winP } = this.props;
     const { awayTeamName, homeTeamName } = this.state;
     const awayScore = game['away'] || '-';
     const homeScore = game['home'] || '-';
@@ -94,6 +64,21 @@ export default class GameItem extends Component {
     //   console.log('dateTime is -!');
     //   console.log(game);
     // }
+
+    let homeWinP = "N/A";
+
+    if (awayScore !== '-' && homeScore !== '-' && dateTime !== '-') {
+      // let innBaseOut = "";
+      const netHomeScore = parseInt(homeScore) - parseInt(awayScore);
+
+      //hardcode test - need to parse date-time string
+      const innBaseOut = 3210;
+
+      homeWinP = winP[innBaseOut][netHomeScore];
+    }
+
+
+
 
     const element = (
       <div className={ style.view }>
@@ -131,6 +116,14 @@ export default class GameItem extends Component {
               value={ dateTime }
               updateGameAttrib={ updateGameAttrib }
             />
+          </span>
+
+          <span>
+            { gameStarted &&
+                <div>
+                  { homeWinP }
+                </div>
+            }
           </span>
 
         </label>

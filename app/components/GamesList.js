@@ -3,6 +3,9 @@ import GameItem from './GameItem';
 import style from './GamesList.css';
 import _ from "lodash";
 
+import * as Papa from 'papaparse';
+import * as winProbs from '../constants/WinProbs';
+
 export default class GamesList extends Component {
 
   static propTypes = {
@@ -12,9 +15,30 @@ export default class GamesList extends Component {
 
   constructor(props, context) {
     super(props, context);
+
+    const results = Papa.parse(winProbs['WIN_PROBS'], {
+      header: true,
+      dynamicTyping: true
+    });
+
+    const winP = {};
+
+    results.data.forEach(row => {
+      const innBaseOut = {};
+      for (let netHomeScore = -15; netHomeScore < 16; netHomeScore++) {
+        innBaseOut[netHomeScore] = row[netHomeScore];
+      }
+
+      winP[row['InnBaseOut']] = innBaseOut;
+    });
+
+    this.state = {
+      winP
+    };
   }
 
   componentDidMount() {
+
     // const gameContainers = document.getElementById('events').
     // getElementsByClassName('scoreboard');
     //
@@ -32,7 +56,9 @@ export default class GamesList extends Component {
   }
 
   render() {
+    // debugger
     const { games, gameActions } = this.props;
+    const { winP } = this.state;
 
     // debugger
 
@@ -42,7 +68,7 @@ export default class GamesList extends Component {
         <ul className={ style.gameList }>
           {
             _.map(games, (game) =>
-              <GameItem key={ game.id } game={ game } { ...gameActions } />
+              <GameItem key={ game.id } game={ game } winP={ winP } { ...gameActions } />
             )
           }
         </ul>
