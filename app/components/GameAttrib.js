@@ -91,11 +91,18 @@ export default class GameAttrib extends Component {
   }
 
   render() {
+    const { attrib } = this.props;
+    let { value } = this.props;
+
+    if (attrib === 'date-time' && value.includes('ET')) {
+      const idx = value.indexOf('ET') - 1;
+      value = value.slice(0, idx);
+    }
 
     return(
 
       <span>
-        { this.props.value }
+        { value }
       </span>
 
     );

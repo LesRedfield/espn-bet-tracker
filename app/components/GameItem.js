@@ -109,36 +109,38 @@ export default class GameItem extends Component {
         <label>
           <div className={ style.gameColumn }>
             <div>
-              <span
+              <div
                 className={ style.addTeam }
                 onClick={ this.handleAddTeam.bind(this, game.id, game.awayTeam) }
-              >{ awayTeamName }</span>
-              <span>
-                { gameStarted &&
-                  <GameAttrib
-                    id={ game.id }
-                    attrib="away"
-                    value={ awayScore }
-                    updateGameAttrib={ updateGameAttrib }
-                  />
-                }
-              </span>
+              >{ awayTeamName }</div>
+              <div
+                className={ style.addTeam }
+                onClick={ this.handleAddTeam.bind(this, game.id, game.awayTeam) }
+              >{ homeTeamName }</div>
             </div>
+          </div>
+          <div id="scoreColumn" className={ style.gameColumn }>
             <div>
-              <span
-                className={ style.addTeam }
-                onClick={ this.handleAddTeam.bind(this, game.id, game.awayTeam) }
-              >{ homeTeamName }</span>
-              <span>
-                { gameStarted &&
-                  <GameAttrib
-                    id={ game.id }
-                    attrib="home"
-                    value={ homeScore }
-                    updateGameAttrib={ updateGameAttrib }
-                  />
-                }
-              </span>
+              { gameStarted &&
+                <div>
+                  <div>
+                    <GameAttrib
+                      id={ game.id }
+                      attrib="away"
+                      value={ awayScore }
+                      updateGameAttrib={ updateGameAttrib }
+                    />
+                  </div>
+                  <div>
+                    <GameAttrib
+                      id={ game.id }
+                      attrib="home"
+                      value={ homeScore }
+                      updateGameAttrib={ updateGameAttrib }
+                    />
+                  </div>
+                </div>
+              }
             </div>
           </div>
 
@@ -152,7 +154,7 @@ export default class GameItem extends Component {
               />
             </div>
             <div>
-              { gameStarted && homeWinP }
+              { gameStarted && homeWinP + '%' }
             </div>
           </div>
         </label>
