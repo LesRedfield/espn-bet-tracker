@@ -56,13 +56,19 @@ export default class WagerForm extends Component {
   };
 
   render() {
-    const { addTeam } = this.props;
+    const { addTeam, toggleWagerForm } = this.props;
     const { pointSpread, odds, amount } = this.state;
 
     return (
-      <div>
-        <div>
-          { addTeam }
+      <div className={ style.wagerFormContainer }>
+        <div className={ style.wagerFormHeader }>
+          <div>
+            { addTeam }
+          </div>
+          <button
+            className={ style.destroy }
+            onClick={ toggleWagerForm }
+          />
         </div>
         <form onSubmit={ this.handleAddWager } >
           <label>
