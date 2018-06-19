@@ -86,43 +86,48 @@ export default class GameItem extends Component {
     const element = (
       <div className={ style.view }>
         <label>
-          <span>{ awayTeamName }</span>
           <span>
-            { gameStarted &&
+            <div>
+              <span>{ awayTeamName }</span>
+              <span>
+                { gameStarted &&
                 <GameAttrib
                   id={ game.id }
                   attrib="away"
                   value={ awayScore }
                   updateGameAttrib={ updateGameAttrib }
                 />
-            }
-          </span>
-
-          <span>{ homeTeamName }</span>
-          <span>
-            { gameStarted &&
+                }
+              </span>
+            </div>
+            <div>
+              <span>{ homeTeamName }</span>
+              <span>
+                { gameStarted &&
                 <GameAttrib
                   id={ game.id }
                   attrib="home"
                   value={ homeScore }
                   updateGameAttrib={ updateGameAttrib }
                 />
-            }
+                }
+              </span>
+            </div>
           </span>
 
           <span>
-            <GameAttrib
-              id={ game.id }
-              attrib="date-time"
-              value={ dateTime }
-              updateGameAttrib={ updateGameAttrib }
-            />
+            <div>
+              <GameAttrib
+                id={ game.id }
+                attrib="date-time"
+                value={ dateTime }
+                updateGameAttrib={ updateGameAttrib }
+              />
+            </div>
+            <div>
+              { gameStarted && homeWinP }
+            </div>
           </span>
-
-          <span>
-            { gameStarted && homeWinP }
-          </span>
-
         </label>
       </div>
     );
