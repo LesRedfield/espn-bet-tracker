@@ -10,7 +10,8 @@ export default class GamesList extends Component {
 
   static propTypes = {
     games: PropTypes.object.isRequired,
-    gameActions: PropTypes.object.isRequired
+    gameActions: PropTypes.object.isRequired,
+    addWager: PropTypes.func.isRequired
   };
 
   constructor(props, context) {
@@ -23,7 +24,7 @@ export default class GamesList extends Component {
 
   render() {
     // debugger
-    const { games, gameActions } = this.props;
+    const { games, gameActions, addWager } = this.props;
     // const { winP } = this.state;
 
     const activeGames = Object.keys(games).filter(gameId => {
@@ -56,7 +57,7 @@ export default class GamesList extends Component {
             <ul className={ style.gameList }>
               {
                 gameList.map(game =>
-                  <GameItem key={ game.id } game={ game } winP={ winP } { ...gameActions } />
+                  <GameItem key={ game.id } game={ game } winP={ winP } { ...gameActions } addWager={ addWager } />
                 )
               }
             </ul>

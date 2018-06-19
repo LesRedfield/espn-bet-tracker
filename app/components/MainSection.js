@@ -41,7 +41,7 @@ export default class MainSection extends Component {
     return (
       <section className={ style.main }>
         <Dashboard games={ games } wagers={ wagers } wagerActions={ wagerActions }/>
-        <GamesList games={ games } gameActions={ gameActions }/>
+        <GamesList games={ games } gameActions={ gameActions } addWager={ wagerActions.addWager }/>
 
       </section>
     );

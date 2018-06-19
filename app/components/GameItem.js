@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import GameAttrib from './GameAttrib';
+import WagerForm from './WagerForm';
 import style from './GameItem.css';
 
 import { winP } from '../constants/WinProbs';
@@ -10,8 +11,8 @@ export default class GameItem extends Component {
   static propTypes = {
     game: PropTypes.object.isRequired,
     editGame: PropTypes.func.isRequired,
-    deleteGame: PropTypes.func.isRequired,
-    updateGameAttrib: PropTypes.func.isRequired
+    updateGameAttrib: PropTypes.func.isRequired,
+    addWager: PropTypes.func.isRequired
   };
 
   constructor(props, context) {
@@ -28,12 +29,15 @@ export default class GameItem extends Component {
 
     this.state = {
       awayTeamName,
-      homeTeamName
+      homeTeamName,
+      wagerForm: false,
+      addTeam: 'none'
     };
   }
 
-  shouldComponentUpdate(nextProps) {
-    return (JSON.stringify(this.props.game) !== JSON.stringify(nextProps.game));
+  shouldComponentUpdate(nextProps, nextState) {
+    return (JSON.stringify(this.props.game) !== JSON.stringify(nextProps.game)) ||
+            this.state.wagerForm !== nextState.wagerForm;
   }
 
   componentDidMount() {
@@ -65,9 +69,26 @@ export default class GameItem extends Component {
     }
   };
 
+  toggleWagerForm = () => {
+    console.log('toggling');
+    // debugger
+    this.setState(prevState => ({
+      wagerForm: !prevState.wagerForm
+    }));
+  };
+
+  handleAddTeam = (gameId, addTeam) => {
+    this.setState({
+      gameId,
+      addTeam
+    });
+
+    this.toggleWagerForm();
+  };
+
   render() {
-    const { game, updateGameAttrib } = this.props;
-    const { awayTeamName, homeTeamName } = this.state;
+    const { game, updateGameAttrib, addWager } = this.props;
+    const { awayTeamName, homeTeamName, wagerForm, addTeam } = this.state;
     const awayScore = game['away'] || '-';
     const homeScore = game['home'] || '-';
     const dateTime = game['date-time'] || '-';
@@ -88,28 +109,34 @@ export default class GameItem extends Component {
         <label>
           <span>
             <div>
-              <span>{ awayTeamName }</span>
+              <span
+                className={ style.addTeam }
+                onClick={ this.handleAddTeam.bind(this, game.id, game.awayTeam) }
+              >{ awayTeamName }</span>
               <span>
                 { gameStarted &&
-                <GameAttrib
-                  id={ game.id }
-                  attrib="away"
-                  value={ awayScore }
-                  updateGameAttrib={ updateGameAttrib }
-                />
+                  <GameAttrib
+                    id={ game.id }
+                    attrib="away"
+                    value={ awayScore }
+                    updateGameAttrib={ updateGameAttrib }
+                  />
                 }
               </span>
             </div>
             <div>
-              <span>{ homeTeamName }</span>
+              <span
+                className={ style.addTeam }
+                onClick={ this.handleAddTeam.bind(this, game.id, game.awayTeam) }
+              >{ homeTeamName }</span>
               <span>
                 { gameStarted &&
-                <GameAttrib
-                  id={ game.id }
-                  attrib="home"
-                  value={ homeScore }
-                  updateGameAttrib={ updateGameAttrib }
-                />
+                  <GameAttrib
+                    id={ game.id }
+                    attrib="home"
+                    value={ homeScore }
+                    updateGameAttrib={ updateGameAttrib }
+                  />
                 }
               </span>
             </div>
@@ -129,9 +156,18 @@ export default class GameItem extends Component {
             </div>
           </span>
         </label>
+        <div>
+          { wagerForm &&
+            <WagerForm
+              gameId={ game.id }
+              addTeam={ addTeam }
+              addWager={ addWager }
+              toggleWagerForm={ this.toggleWagerForm }
+            />
+          }
+        </div>
       </div>
     );
-
 
     return (
       <li className={ style.normal }>
