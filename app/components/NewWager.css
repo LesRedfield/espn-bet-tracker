@@ -1,0 +1,9 @@
+.addTeam:hover {
+    cursor: pointer;
+    background-color: lawngreen;
+}
+
+.vs {
+    padding-left: 10px;
+    padding-right: 10px;
+}

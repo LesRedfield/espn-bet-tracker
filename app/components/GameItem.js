@@ -65,12 +65,6 @@ export default class GameItem extends Component {
     }
   };
 
-  handleDelete = () => {
-    const { game, deleteGame } = this.props;
-
-    deleteGame(game.id);
-  };
-
   render() {
     const { game, updateGameAttrib } = this.props;
     const { awayTeamName, homeTeamName } = this.state;
@@ -92,8 +86,6 @@ export default class GameItem extends Component {
     const element = (
       <div className={ style.view }>
         <label>
-          <span>{ game.id }</span>
-
           <span>{ awayTeamName }</span>
           <span>
             { gameStarted &&
@@ -132,10 +124,6 @@ export default class GameItem extends Component {
           </span>
 
         </label>
-        <button
-          className={ style.destroy }
-          onClick={ this.handleDelete }
-        />
       </div>
     );
 

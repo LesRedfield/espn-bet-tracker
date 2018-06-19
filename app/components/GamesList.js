@@ -26,18 +26,53 @@ export default class GamesList extends Component {
     const { games, gameActions } = this.props;
     // const { winP } = this.state;
 
-    // debugger
+    const activeGames = Object.keys(games).filter(gameId => {
+      return document.getElementById(gameId).classList.contains('live');
+    }).map(gameId => {
+      return games[gameId];
+    });
+
+    const completedGames = Object.keys(games).filter(gameId => {
+      return document.getElementById(gameId).classList.contains('final');
+    }).map(gameId => {
+      return games[gameId];
+    });
+
+    const pendingGames = Object.keys(games).filter(gameId => {
+      return (!document.getElementById(gameId).classList.contains('final') &&
+              !document.getElementById(gameId).classList.contains('live'));
+    }).map(gameId => {
+      return games[gameId];
+    });
+
+    const listNames = ["Active Games", "Completed Games", "Pending Games"];
+    const gameLists = [activeGames, completedGames, pendingGames];
+
+    const gameListElements = (
+      gameLists.map((gameList, idx) =>
+        gameList.length > 0 ? (
+          <div key={ idx } className={ style.gameListColumn }>
+            <h2>{ listNames[idx] }</h2>
+            <ul className={ style.gameList }>
+              {
+                gameList.map(game =>
+                  <GameItem key={ game.id } game={ game } winP={ winP } { ...gameActions } />
+                )
+              }
+            </ul>
+          </div>
+        ) : (
+          <div key={ idx }/>
+        )
+      )
+    );
 
     return (
       <div>
         <h1>Today's Games</h1>
-        <ul className={ style.gameList }>
-          {
-            _.map(games, (game) =>
-              <GameItem key={ game.id } game={ game } winP={ winP } { ...gameActions } />
-            )
-          }
-        </ul>
+        <div className={ style.gameListContainer }>
+          { gameListElements }
+        </div>
       </div>
     );
   }
