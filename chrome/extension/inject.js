@@ -36,7 +36,7 @@ window.addEventListener('load', () => {
 
 
   // (FOR DEV) => clear state in local storage each page reload
-  chrome.storage.local.set({ state: JSON.stringify({}) });
+  chrome.storage.local.set({ state: JSON.stringify({  }) });
 
 
   chrome.storage.local.get('state', (obj) => {

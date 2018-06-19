@@ -3,8 +3,8 @@ import GameItem from './GameItem';
 import style from './GamesList.css';
 import _ from "lodash";
 
-import * as Papa from 'papaparse';
-import * as winProbs from '../constants/WinProbs';
+// import * as Papa from 'papaparse';
+import { winP } from '../constants/WinProbs';
 
 export default class GamesList extends Component {
 
@@ -16,25 +16,28 @@ export default class GamesList extends Component {
   constructor(props, context) {
     super(props, context);
 
-    const results = Papa.parse(winProbs['WIN_PROBS'], {
-      header: true,
-      dynamicTyping: true
-    });
+    // const results = Papa.parse(winProbs['WIN_PROBS'], {
+    //   header: true,
+    //   dynamicTyping: true
+    // });
 
-    const winP = {};
+    // const winP = {};
+    //
+    // results.data.forEach(row => {
+    //   const innBaseOut = {};
+    //   for (let netHomeScore = -15; netHomeScore < 16; netHomeScore++) {
+    //     innBaseOut[netHomeScore] = row[netHomeScore];
+    //   }
+    //
+    //   winP[row['InnBaseOut']] = innBaseOut;
+    // });
+    //
+    // console.log('parsing winP');
+    // console.log(winP);
 
-    results.data.forEach(row => {
-      const innBaseOut = {};
-      for (let netHomeScore = -15; netHomeScore < 16; netHomeScore++) {
-        innBaseOut[netHomeScore] = row[netHomeScore];
-      }
-
-      winP[row['InnBaseOut']] = innBaseOut;
-    });
-
-    this.state = {
-      winP
-    };
+    // this.state = {
+    //   winP
+    // };
   }
 
   componentDidMount() {
@@ -58,7 +61,7 @@ export default class GamesList extends Component {
   render() {
     // debugger
     const { games, gameActions } = this.props;
-    const { winP } = this.state;
+    // const { winP } = this.state;
 
     // debugger
 

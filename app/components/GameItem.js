@@ -39,6 +39,31 @@ export default class GameItem extends Component {
 
   }
 
+  calcWinP = (awayScore, homeScore, dateTime) => {
+    const { winP } = this.props;
+
+    const netHomeScore = homeScore - awayScore;
+
+    const inning1 = parseInt(dateTime[4]);
+
+    const inning2 = dateTime.slice(0, 3);
+
+    let innBaseOut = (inning2 === "Mid" || inning2 === "Bot") ?
+      (1000 * inning1) + 210 : inning2 === "Top" ?
+        (1000 * inning1) + 110 : (1000 * (inning1 + 1)) + 110;
+
+    if (innBaseOut > 10000) {
+      innBaseOut -= 1000;
+    }
+
+    if (dateTime === "FINAL") {
+      return netHomeScore > 0 ? 100 : 0;
+    } else {
+      console.log(innBaseOut);
+      return winP[innBaseOut][netHomeScore];
+    }
+  };
+
   handleDelete = () => {
     const { game, deleteGame } = this.props;
 
@@ -54,31 +79,12 @@ export default class GameItem extends Component {
     const gameStarted = document.getElementById(game.id).classList.contains('live') ||
                         document.getElementById(game.id).classList.contains('final');
 
-    // const gameStarted = false;
-
-    // debugger
-
-    console.log(game);
-
-    // if (dateTime === '-') {
-    //   console.log('dateTime is -!');
-    //   console.log(game);
-    // }
-
     let homeWinP = "N/A";
 
-    if (awayScore !== '-' && homeScore !== '-' && dateTime !== '-') {
-      // let innBaseOut = "";
-      const netHomeScore = parseInt(homeScore) - parseInt(awayScore);
-
-      //hardcode test - need to parse date-time string
-      const innBaseOut = 3210;
-
-      homeWinP = winP[innBaseOut][netHomeScore];
+    if (gameStarted && dateTime !== "Delayed" &&
+      awayScore !== '-' && homeScore !== '-' && dateTime !== '-') {
+      homeWinP = this.calcWinP(awayScore, homeScore, dateTime);
     }
-
-
-
 
     const element = (
       <div className={ style.view }>
@@ -119,11 +125,7 @@ export default class GameItem extends Component {
           </span>
 
           <span>
-            { gameStarted &&
-                <div>
-                  { homeWinP }
-                </div>
-            }
+            { gameStarted && homeWinP }
           </span>
 
         </label>

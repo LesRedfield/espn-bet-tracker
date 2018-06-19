@@ -54,7 +54,7 @@ export default class Dashboard extends Component {
     const name = target.name;
 
     this.setState({
-      [name]: value
+      [name]: parseFloat(value)
     });
   };
 
@@ -105,12 +105,17 @@ export default class Dashboard extends Component {
         <form onSubmit={ this.handleAddWager } >
           <label>
             Point Spread:
-            <input
+            <select
               name="pointSpread"
-              type="number"
               value={ this.state.pointSpread }
               onChange={ this.handleInputChange }
-            />
+            >
+              <option value="-2.5">-2.5</option>
+              <option value="-1.5">-1.5</option>
+              <option value="0">ML</option>
+              <option value="+1.5">+1.5</option>
+              <option value="+2.5">+2.5</option>
+            </select>
           </label>
           <br />
           <label>
