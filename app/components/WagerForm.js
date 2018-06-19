@@ -71,42 +71,55 @@ export default class WagerForm extends Component {
           />
         </div>
         <form onSubmit={ this.handleAddWager } >
-          <label>
-            Point Spread:
-            <select
-              name="pointSpread"
-              value={ pointSpread }
-              onChange={ this.handleInputChange }
-            >
-              <option value="-2.5">-2.5</option>
-              <option value="-1.5">-1.5</option>
-              <option value="0">ML</option>
-              <option value="+1.5">+1.5</option>
-              <option value="+2.5">+2.5</option>
-            </select>
-          </label>
-          <br />
-          <label>
-            Odds:
-            <input
-              name="odds"
-              type="number"
-              value={ odds }
-              onChange={ this.handleInputChange }
-            />
-          </label>
-          <br />
-          <label>
-            Amount: $
-            <input
-              name="amount"
-              type="number"
-              value={ amount }
-              onChange={ this.handleInputChange }
-            />
-          </label>
-          <br />
-          <input type="submit" value="Submit" />
+          <div className={ style.wagerFormBody } >
+            <div className={ style.wagerFormColumn } >
+              <div>
+                Point Spread
+              </div>
+              <div>
+                <select
+                  name="pointSpread"
+                  value={ pointSpread }
+                  onChange={ this.handleInputChange }
+                >
+                  <option value="-2.5">-2.5</option>
+                  <option value="-1.5">-1.5</option>
+                  <option value="0">ML</option>
+                  <option value="+1.5">+1.5</option>
+                  <option value="+2.5">+2.5</option>
+                </select>
+              </div>
+            </div>
+            <div className={ style.wagerFormColumn } >
+              <div>
+                Odds
+              </div>
+              <div>
+                <input
+                  name="odds"
+                  type="number"
+                  value={ odds }
+                  onChange={ this.handleInputChange }
+                />
+              </div>
+            </div>
+            <div className={ style.wagerFormColumn } >
+              <div>
+                Amount
+              </div>
+              <div>
+                <input
+                  name="amount"
+                  type="number"
+                  value={ amount }
+                  onChange={ this.handleInputChange }
+                />
+              </div>
+            </div>
+          </div>
+          <div className={ style.wagerFormFooter } >
+            <input type="submit" value="Submit" />
+          </div>
         </form>
       </div>
     );

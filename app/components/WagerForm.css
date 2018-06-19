@@ -25,3 +25,31 @@
 .destroy:after {
     content: '↑';
 }
+
+.wagerFormBody {
+    display: flex;
+    margin: 5px;
+}
+
+.wagerFormColumn {
+    text-align: center;
+    margin-right: 5px;
+}
+
+.wagerFormColumn:last-child {
+    margin-right: 0;
+}
+
+.wagerFormColumn input {
+    max-width: 70px;
+    text-align: center;
+}
+
+.wagerFormColumn select {
+    width: 100%;
+}
+
+.wagerFormFooter {
+    margin-bottom: 5px;
+}
+
