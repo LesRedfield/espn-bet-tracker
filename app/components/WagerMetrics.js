@@ -22,6 +22,8 @@ export default class WagerMetrics extends Component {
   calcCompletedNet = (completedWagers) => {
     let completedNet = 0;
 
+    // debugger
+
     completedWagers.forEach(wager => {
       const wagerNetScore = wager.team === wager.awayTeam ?
         wager.awayScore + wager.pointSpread - wager.homeScore :
@@ -35,6 +37,8 @@ export default class WagerMetrics extends Component {
           ((wager.amount / wager.odds) * -100 );
       }
 
+      // debugger
+
       completedNet += wagerNetAmount;
     });
 
@@ -47,7 +51,7 @@ export default class WagerMetrics extends Component {
     const { wagers, games } = this.props;
 
     const completedGameIds = Object.keys(games).filter(gameId => {
-      return games[gameId]['date-time'] === 'FINAL';
+      return games[gameId]['date-time'].slice(0, 5) === 'FINAL';
     });
 
     // debugger
@@ -71,8 +75,8 @@ export default class WagerMetrics extends Component {
         odds: wager.odds,
         amount: wager.amount,
         awayTeam: game.awayTeam,
-        awayScore: game.away,
-        homeScore: game.home
+        awayScore: parseInt(game.away),
+        homeScore: parseInt(game.home)
       };
     });
 

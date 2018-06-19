@@ -5,9 +5,9 @@ import style from './WagerItem.css';
 export default class WagerItem extends Component {
 
   static propTypes = {
-    games: PropTypes.object.isRequired,
-    wagers: PropTypes.object.isRequired,
-    wagerActions: PropTypes.object.isRequired
+    game: PropTypes.object.isRequired,
+    wager: PropTypes.object.isRequired,
+    deleteWager: PropTypes.func.isRequired
   };
 
   constructor(props, context) {
@@ -18,11 +18,57 @@ export default class WagerItem extends Component {
 
   }
 
-  render() {
+  handleDelete = () => {
+    const { game, deleteWager } = this.props;
 
+    deleteWager(wager.gameId);
+  };
+
+  render() {
+    const { game, wager } = this.props;
+
+    const pointSpread = wager.pointSpread === 0 ? "ML" : wager.pointSpread;
 
     return (
-      <div>WagerItem</div>
+      <li className={ style.normal }>
+
+        <label>
+          <div>
+            <span>
+              { wager.team }
+            </span>
+            <span>
+              { pointSpread }
+            </span>
+            <span>
+              { wager.odds }
+            </span>
+            <span>
+              { wager.amount }
+            </span>
+          </div>
+
+          <div>
+            <span>
+              { game.awayTeam }
+            </span>
+            <span>
+              { game.away || '-' }
+            </span>
+            <span>
+              { game.homeTeam }
+            </span>
+            <span>
+              { game.home || '-' }
+            </span>
+          </div>
+        </label>
+
+        <button
+          className={ style.destroy }
+          onClick={ this.handleDelete }
+        />
+      </li>
     );
   }
 }

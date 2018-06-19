@@ -78,12 +78,13 @@ export default class NewWager extends Component {
           <ul>
             {
               _.map(games, (game, idx) =>
-                <div
-                  key={ idx }
-                  onClick={ this.handleAddTeam.bind(this, game.id, game.awayTeam) }
-                >
-                  <span>
-                    { game.awayTeam + ' vs ' + game.homeTeam }
+                <div key={ idx } >
+                  <span onClick={ this.handleAddTeam.bind(this, game.id, game.awayTeam) } >
+                    { game.awayTeam }
+                  </span>
+                  <span>vs</span>
+                  <span onClick={ this.handleAddTeam.bind(this, game.id, game.homeTeam) } >
+                    { game.homeTeam }
                   </span>
                 </div>
               )

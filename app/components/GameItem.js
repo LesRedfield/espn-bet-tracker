@@ -57,7 +57,7 @@ export default class GameItem extends Component {
       innBaseOut -= 1000;
     }
 
-    if (dateTime === "FINAL") {
+    if (dateTime === "FINAL" || dateTime === "Final" || dateTime.slice(0, 5) === "FINAL") {
       return netHomeScore > 0 ? 100 : 0;
     } else {
       console.log(innBaseOut);
@@ -77,12 +77,14 @@ export default class GameItem extends Component {
     const awayScore = game['away'] || '-';
     const homeScore = game['home'] || '-';
     const dateTime = game['date-time'] || '-';
-    const gameStarted = document.getElementById(game.id).classList.contains('live') ||
-                        document.getElementById(game.id).classList.contains('final');
+    const gameStarted = (document.getElementById(game.id).classList.contains('live') ||
+                        document.getElementById(game.id).classList.contains('final')) &&
+                        document.getElementById(game.id).getElementsByClassName('date-time')[0]
+                          .innerText !== "POSTPONED";
 
     let homeWinP = "N/A";
 
-    if (gameStarted && dateTime !== "Delayed" &&
+    if (gameStarted && dateTime !== "Delayed" && dateTime !== "POSTPONED" &&
       awayScore !== '-' && homeScore !== '-' && dateTime !== '-') {
       homeWinP = this.calcWinP(awayScore, homeScore, dateTime);
     }

@@ -7,7 +7,8 @@ export default class WagersList extends Component {
 
   static propTypes = {
     games: PropTypes.object.isRequired,
-    wagers: PropTypes.object.isRequired
+    wagers: PropTypes.object.isRequired,
+    wagerActions: PropTypes.object.isRequired
   };
 
   constructor(props, context) {
@@ -19,7 +20,7 @@ export default class WagersList extends Component {
   }
 
   render() {
-    const { games, wagers } = this.props;
+    const { games, wagers, wagerActions } = this.props;
 
     return (
       <div>
@@ -27,11 +28,12 @@ export default class WagersList extends Component {
         <ul>
           {
             _.map(wagers, (wager, idx) =>
-              <div key={ idx } >
-                  <span>
-                    { wager.team + ' ' + wager.pointSpread + ' ' + wager.odds + ' $' + wager.amount }
-                  </span>
-              </div>
+              <WagerItem
+                key={ wager.gameId }
+                wager={ wager }
+                game={ games[wager.gameId] }
+                { ...wagerActions }
+              />
             )
           }
         </ul>

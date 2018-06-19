@@ -10,7 +10,8 @@ const actionsMap = {
       [action.id]: {
         id: action.id,
         awayTeam: action.awayTeam,
-        homeTeam: action.homeTeam
+        homeTeam: action.homeTeam,
+        'date-time': '-'
       }
     }
   },

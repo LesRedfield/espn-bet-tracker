@@ -15,47 +15,10 @@ export default class GamesList extends Component {
 
   constructor(props, context) {
     super(props, context);
-
-    // const results = Papa.parse(winProbs['WIN_PROBS'], {
-    //   header: true,
-    //   dynamicTyping: true
-    // });
-
-    // const winP = {};
-    //
-    // results.data.forEach(row => {
-    //   const innBaseOut = {};
-    //   for (let netHomeScore = -15; netHomeScore < 16; netHomeScore++) {
-    //     innBaseOut[netHomeScore] = row[netHomeScore];
-    //   }
-    //
-    //   winP[row['InnBaseOut']] = innBaseOut;
-    // });
-    //
-    // console.log('parsing winP');
-    // console.log(winP);
-
-    // this.state = {
-    //   winP
-    // };
   }
 
   componentDidMount() {
 
-    // const gameContainers = document.getElementById('events').
-    // getElementsByClassName('scoreboard');
-    //
-    // Array.from(gameContainers).forEach(function(gameContainer) {
-    //
-    //   const id = gameContainer.id;
-    //
-    //   const teamNames = gameContainer.getElementsByClassName('sb-team-short');
-    //
-    //   const awayTeam = teamNames[0].innerText;
-    //   const homeTeam = teamNames[1].innerText;
-    //
-    //   this.props.actions.addGame(id, awayTeam, homeTeam);
-    // }, this);
   }
 
   render() {
