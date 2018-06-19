@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-// import GameItem from './GameItem';
-import GamesList from './GamesList';
+import WagerMetrics from './WagerMetrics';
+import WagersList from './WagersList';
+import NewWager from './NewWager';
+
 import style from './Dashboard.css';
 // import _ from "lodash";
 
@@ -25,154 +27,25 @@ export default class Dashboard extends Component {
     };
   }
 
-  toggleShowAddWagers = (status) => {
-    console.log('toggling');
-    // debugger
-    this.setState({ addingWager: status });
-  };
-
-  handleAddTeam = (gameId, team) => {
-    this.setState({
-      gameId,
-      team
-    });
-
-    this.toggleShowAddWagers('wagerForm');
-  };
-
-  handleAddWager = (e) => {
-    const { gameId, team, pointSpread, odds, amount } = this.state;
-    console.log('add game ' + gameId);
-    this.props.wagerActions.addWager(gameId, team, pointSpread, odds, amount);
-    this.toggleShowAddWagers('button');
-    e.preventDefault();
-  };
-
-  handleInputChange = (event) => {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: parseFloat(value)
-    });
-  };
-
   componentDidMount() {
-    // const gameContainers = document.getElementById('events').
-    //                                 getElementsByClassName('scoreboard');
-    //
-    // Array.from(gameContainers).forEach(function(gameContainer) {
-    //
-    //   const id = gameContainer.id;
-    //
-    //   this.props.actions.addGame(id);
-    // }, this);
+
   }
 
   render() {
-    const { games, wagers } = this.props;
-
-    // debugger
-
-    const element = this.state.addingWager === 'games' ? (
-      <div>
-        <div>
-          <h1>
-            Choose a game to add
-            <button onClick={ this.toggleShowAddWagers.bind(this, 'button') } >
-              X
-            </button>
-          </h1>
-          <ul>
-            {
-              _.map(games, (game, idx) =>
-                <div
-                  key={ idx }
-                  onClick={ this.handleAddTeam.bind(this, game.id, game.awayTeam) }
-                >
-                  <span>
-                    { game.awayTeam + ' vs ' + game.homeTeam }
-                  </span>
-                </div>
-              )
-            }
-          </ul>
-        </div>
-      </div>
-    ) : this.state.addingWager === 'wagerForm' ? (
-      <div>
-        <form onSubmit={ this.handleAddWager } >
-          <label>
-            Point Spread:
-            <select
-              name="pointSpread"
-              value={ this.state.pointSpread }
-              onChange={ this.handleInputChange }
-            >
-              <option value="-2.5">-2.5</option>
-              <option value="-1.5">-1.5</option>
-              <option value="0">ML</option>
-              <option value="+1.5">+1.5</option>
-              <option value="+2.5">+2.5</option>
-            </select>
-          </label>
-          <br />
-          <label>
-            Odds:
-            <input
-              name="odds"
-              type="number"
-              value={ this.state.odds }
-              onChange={ this.handleInputChange }
-            />
-          </label>
-          <br />
-          <label>
-            Amount: $
-            <input
-              name="amount"
-              type="number"
-              value={ this.state.amount }
-              onChange={ this.handleInputChange }
-            />
-          </label>
-          <br />
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-    ) : (
-      <button
-        className={ style.addWager }
-        onClick={ this.toggleShowAddWagers.bind(this, 'games') }
-      >
-        <span>
-          ADD WAGER
-        </span>
-      </button>
-    );
-
+    const { games, wagers, wagerActions } = this.props;
 
     return (
       <div className={ style.dashboard }>
         MY WAGERS DASHBOARD
         <div>
-          <h1>MY WAGERS LIST</h1>
-          <ul>
-            {
-              _.map(wagers, (wager, idx) =>
-                <div key={ idx } >
-                  <span>
-                    { wager.team + ' ' + wager.pointSpread + ' ' + wager.odds + ' $' + wager.amount }
-                  </span>
-                </div>
-              )
-            }
-          </ul>
+          <WagerMetrics wagers={ wagers } games={ games } />
+        </div>
+        <div>
+          <WagersList wagers={ wagers } games={ games } />
         </div>
 
         <div>
-          { element }
+          <NewWager wagers={ wagers } games={ games } wagerActions={ wagerActions } />
         </div>
       </div>
     );

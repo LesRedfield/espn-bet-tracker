@@ -2,12 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import GameAttrib from './GameAttrib';
 import style from './GameItem.css';
 
+import { winP } from '../constants/WinProbs';
+
 
 export default class GameItem extends Component {
 
   static propTypes = {
     game: PropTypes.object.isRequired,
-    winP: PropTypes.object.isRequired,
     editGame: PropTypes.func.isRequired,
     deleteGame: PropTypes.func.isRequired,
     updateGameAttrib: PropTypes.func.isRequired
@@ -40,7 +41,7 @@ export default class GameItem extends Component {
   }
 
   calcWinP = (awayScore, homeScore, dateTime) => {
-    const { winP } = this.props;
+    // const { winP } = this.props;
 
     const netHomeScore = homeScore - awayScore;
 
@@ -71,7 +72,7 @@ export default class GameItem extends Component {
   };
 
   render() {
-    const { game, updateGameAttrib, winP } = this.props;
+    const { game, updateGameAttrib } = this.props;
     const { awayTeamName, homeTeamName } = this.state;
     const awayScore = game['away'] || '-';
     const homeScore = game['home'] || '-';

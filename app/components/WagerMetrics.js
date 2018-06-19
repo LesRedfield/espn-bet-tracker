@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import WagerMetric from './WagerMetric';
-import style from './WagerMetrics.css.css';
+import style from './WagerMetrics.css';
+
+import { winP } from '../constants/WinProbs';
 
 export default class WagerMetrics extends Component {
 
   static propTypes = {
     wagers: PropTypes.object.isRequired,
-    games: PropTypes.object.isRequired,
-    winP: PropTypes.object.isRequired
+    games: PropTypes.object.isRequired
   };
 
   constructor(props, context) {
@@ -37,19 +38,31 @@ export default class WagerMetrics extends Component {
       completedNet += wagerNetAmount;
     });
 
+    // debugger
+
     return completedNet;
   };
 
   render() {
-    const { wagers, games, winP } = this.props;
+    const { wagers, games } = this.props;
 
     const completedGameIds = Object.keys(games).filter(gameId => {
-      return games[gameId].dateTime === 'FINAL';
+      return games[gameId]['date-time'] === 'FINAL';
     });
 
-    const completedWagers = completedGameIds.map(gameId => {
-      const game = games.gameId;
-      const wager = wagers.gameId;
+    // debugger
+
+    const completedWagerIds = completedGameIds.filter(gameId => {
+      return wagers[gameId];
+    });
+
+    // debugger
+
+    const completedWagers = completedWagerIds.map(gameId => {
+      const game = games[gameId];
+      const wager = wagers[gameId];
+
+      // debugger
 
       return {
         gameId,
@@ -64,6 +77,8 @@ export default class WagerMetrics extends Component {
     });
 
     const completedNet = this.calcCompletedNet(completedWagers);
+
+    // debugger
 
     return (
       <div>
