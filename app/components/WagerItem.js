@@ -19,7 +19,7 @@ export default class WagerItem extends Component {
   }
 
   handleDelete = () => {
-    const { game, deleteWager } = this.props;
+    const { wager, deleteWager } = this.props;
 
     deleteWager(wager.gameId);
   };

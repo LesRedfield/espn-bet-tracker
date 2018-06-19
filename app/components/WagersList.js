@@ -25,7 +25,7 @@ export default class WagersList extends Component {
     return (
       <div>
         <h1>MY WAGERS LIST</h1>
-        <ul>
+        <ul className={ style.wagerList }>
           {
             _.map(wagers, (wager, idx) =>
               <WagerItem
