@@ -100,7 +100,6 @@ export default class GameAttrib extends Component {
     }
 
     return(
-
       <span>
         { value }
       </span>

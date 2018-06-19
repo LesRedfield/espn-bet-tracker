@@ -61,6 +61,9 @@ export default class WagerForm extends Component {
 
     return (
       <div>
+        <div>
+          { addTeam }
+        </div>
         <form onSubmit={ this.handleAddWager } >
           <label>
             Point Spread:

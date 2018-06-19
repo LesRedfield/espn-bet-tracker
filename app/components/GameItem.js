@@ -18,18 +18,7 @@ export default class GameItem extends Component {
   constructor(props, context) {
     super(props, context);
 
-    const id = this.props.game.id;
-
-    const gameTable = document.getElementById(id);
-
-    const teamNames = gameTable.getElementsByClassName('sb-team-short');
-
-    const awayTeamName = teamNames[0].innerText;
-    const homeTeamName = teamNames[1].innerText;
-
     this.state = {
-      awayTeamName,
-      homeTeamName,
       wagerForm: false,
       addTeam: 'none'
     };
@@ -88,7 +77,7 @@ export default class GameItem extends Component {
 
   render() {
     const { game, updateGameAttrib, addWager } = this.props;
-    const { awayTeamName, homeTeamName, wagerForm, addTeam } = this.state;
+    const { wagerForm, addTeam } = this.state;
     const awayScore = game['away'] || '-';
     const homeScore = game['home'] || '-';
     const dateTime = game['date-time'] || '-';
@@ -112,11 +101,11 @@ export default class GameItem extends Component {
               <div
                 className={ style.addTeam }
                 onClick={ this.handleAddTeam.bind(this, game.id, game.awayTeam) }
-              >{ awayTeamName }</div>
+              >{ game.awayTeam }</div>
               <div
                 className={ style.addTeam }
-                onClick={ this.handleAddTeam.bind(this, game.id, game.awayTeam) }
-              >{ homeTeamName }</div>
+                onClick={ this.handleAddTeam.bind(this, game.id, game.homeTeam) }
+              >{ game.homeTeam }</div>
             </div>
           </div>
           <div id="scoreColumn" className={ style.gameColumn }>
