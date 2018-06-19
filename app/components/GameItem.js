@@ -107,7 +107,7 @@ export default class GameItem extends Component {
     const element = (
       <div className={ style.view }>
         <label>
-          <span>
+          <div className={ style.gameColumn }>
             <div>
               <span
                 className={ style.addTeam }
@@ -140,9 +140,9 @@ export default class GameItem extends Component {
                 }
               </span>
             </div>
-          </span>
+          </div>
 
-          <span>
+          <div className={ style.gameColumn }>
             <div>
               <GameAttrib
                 id={ game.id }
@@ -154,7 +154,7 @@ export default class GameItem extends Component {
             <div>
               { gameStarted && homeWinP }
             </div>
-          </span>
+          </div>
         </label>
         <div>
           { wagerForm &&

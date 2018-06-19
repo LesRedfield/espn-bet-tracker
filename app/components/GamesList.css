@@ -23,6 +23,8 @@
     position: relative;
     font-size: 16px;
     border-bottom: 1px solid #ededed;
+    width: calc(100% / 3);
+    border: 1px solid black;
 }
 
 .gameList li:last-child {
@@ -34,7 +36,8 @@
     word-break: break-all;
     padding: 5px 15px 5px 5px;
     margin-left: 10px;
-    display: block;
+    display: flex;
+    justify-content: space-between;
     line-height: 1.2;
     transition: color 0.4s;
 }
