@@ -74,7 +74,7 @@ export default class WagerForm extends Component {
           <div className={ style.wagerFormBody } >
             <div className={ style.wagerFormColumn } >
               <div>
-                Point Spread
+                Line
               </div>
               <div>
                 <select
@@ -111,6 +111,7 @@ export default class WagerForm extends Component {
                 <input
                   name="amount"
                   type="number"
+                  placeholder="$"
                   value={ amount }
                   onChange={ this.handleInputChange }
                 />

@@ -43,9 +43,6 @@ export default class Dashboard extends Component {
         <div>
           <WagersList wagers={ wagers } games={ games } wagerActions={ wagerActions } />
         </div>
-        <div>
-          <NewWager wagers={ wagers } games={ games } wagerActions={ wagerActions } />
-        </div>
       </div>
     );
   }
