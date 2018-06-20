@@ -22,21 +22,75 @@ export default class WagersList extends Component {
   render() {
     const { games, wagers, wagerActions } = this.props;
 
-    return (
-      <div>
-        <h1>MY WAGERS LIST</h1>
-        <ul className={ style.wagerList }>
+    const completedWagers = Object.keys(wagers).filter(gameId => {
+      return document.getElementById(gameId).classList.contains('final');
+    }).map(gameId => {
+      return {
+        game: games[gameId],
+        wager: wagers[gameId]
+      };
+    });
+
+    const activeWagers = Object.keys(wagers).filter(gameId => {
+      return document.getElementById(gameId).classList.contains('live');
+    }).map(gameId => {
+      return {
+        game: games[gameId],
+        wager: wagers[gameId]
+      };
+    });
+
+    const pendingWagers = Object.keys(wagers).filter(gameId => {
+      return (!document.getElementById(gameId).classList.contains('final') &&
+              !document.getElementById(gameId).classList.contains('live'));
+    }).map(gameId => {
+      return {
+        game: games[gameId],
+        wager: wagers[gameId]
+      };
+    });
+
+    const listNames = ["Completed", "Active", "Pending"];
+    const wagerLists = [completedWagers, activeWagers, pendingWagers];
+
+    const wagerListElements = (
+      wagerLists.map((wagerList, idx) =>
+        <div key={ idx } className={ style.wagerListColumn }>
+          <h2>{ listNames[idx] }</h2>
           {
-            _.map(wagers, (wager, idx) =>
-              <WagerItem
-                key={ wager.gameId }
-                wager={ wager }
-                game={ games[wager.gameId] }
-                { ...wagerActions }
-              />
+            wagerList.length > 0 ? (
+              <ul>
+                {
+                  wagerList.map(wagerObj =>
+                    <WagerItem
+                      key={ wagerObj.game.id }
+                      wager={ wagerObj.wager }
+                      game={ wagerObj.game }
+                      { ...wagerActions }
+                    />
+                  )
+                }
+              </ul>
+            ) : (
+              <div className={ style.noWagers } >
+                { 'No ' + listNames[idx] + ' Wagers Added' }
+              </div>
             )
           }
-        </ul>
+
+        </div>
+      )
+    );
+
+    return (
+      <div>
+        <h2>My Wagers</h2>
+        <div className={ style.wagerList } >
+          {
+            wagerListElements
+          }
+        </div>
+
       </div>
     );
   }

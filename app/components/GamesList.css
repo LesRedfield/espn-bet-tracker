@@ -1,13 +1,27 @@
-.gameListContainer {
-    /*display: flex;*/
-    /*justify-content: space-around;*/
+.gameListOuter {
+    border: 1px solid black;
+    margin: 2px;
+    margin-top: 30px;
 }
 
-.gameListColumn {
+.gameListOuter h1 {
+    font-size: 26px;
+}
+
+.gameListInner {
+    border: 1px solid black;
+    margin: 2px;
+}
+
+.gameListRow {
     /*width: 30%;*/
     margin: 2px;
     padding: 2px;
     border: 1px solid black;
+}
+
+.gameListRow h2 {
+    font-size: 20px;
 }
 
 .gameList {

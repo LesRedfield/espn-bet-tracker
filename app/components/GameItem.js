@@ -108,7 +108,7 @@ export default class GameItem extends Component {
               >{ game.homeTeam }</div>
             </div>
           </div>
-          <div id="scoreColumn" className={ style.gameColumn }>
+          <div className={ style.gameColumn }>
             <div>
               { gameStarted &&
                 <div>

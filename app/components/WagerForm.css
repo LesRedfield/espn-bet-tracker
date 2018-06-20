@@ -23,7 +23,7 @@
 }
 
 .destroy:after {
-    content: '↑';
+    content: '×';
 }
 
 .wagerFormBody {

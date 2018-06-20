@@ -29,45 +29,61 @@ export default class WagerItem extends Component {
 
     const pointSpread = wager.pointSpread === 0 ? "ML" : wager.pointSpread;
 
+    const gameStarted = (document.getElementById(game.id).classList.contains('live') ||
+      document.getElementById(game.id).classList.contains('final')) &&
+      document.getElementById(game.id).getElementsByClassName('date-time')[0]
+        .innerText !== "POSTPONED";
+
     return (
       <li className={ style.normal }>
-
-        <label>
-          <div>
+        <div className={ style.wagerItemHeader } >
+          <div className={ style.wagerItemHeaderRow } >
             <span>
               { wager.team }
             </span>
+            <button
+              className={ style.destroy }
+              onClick={ this.handleDelete }
+            />
+          </div>
+          <div className={ style.wagerItemHeaderRow } >
             <span>
               { pointSpread }
             </span>
             <span>
-              { wager.odds }
+              { wager.odds > 0 ? '+' + wager.odds : wager.odds }
             </span>
-            <span>
+            <span>$
               { wager.amount }
             </span>
           </div>
 
+
+        </div>
+
+        <label>
           <div>
-            <span>
+            <div>
               { game.awayTeam }
-            </span>
-            <span>
-              { game.away || '-' }
-            </span>
-            <span>
+            </div>
+            <div>
               { game.homeTeam }
-            </span>
-            <span>
-              { game.home || '-' }
-            </span>
+            </div>
+          </div>
+
+          <div>
+            { gameStarted &&
+              <div>
+                <div>
+                  { game.away || '-' }
+                </div>
+                <div>
+                  { game.home || '-' }
+                </div>
+              </div>
+            }
           </div>
         </label>
-
-        <button
-          className={ style.destroy }
-          onClick={ this.handleDelete }
-        />
       </li>
     );
   }

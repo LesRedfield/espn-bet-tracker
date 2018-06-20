@@ -4,7 +4,7 @@ import style from './GamesList.css';
 import _ from "lodash";
 
 // import * as Papa from 'papaparse';
-import { winP } from '../constants/WinProbs';
+// import { winP } from '../constants/WinProbs';
 
 export default class GamesList extends Component {
 
@@ -46,18 +46,18 @@ export default class GamesList extends Component {
       return games[gameId];
     });
 
-    const listNames = ["Active Games", "Completed Games", "Pending Games"];
+    const listNames = ["Active", "Completed", "Pending"];
     const gameLists = [activeGames, completedGames, pendingGames];
 
     const gameListElements = (
       gameLists.map((gameList, idx) =>
         gameList.length > 0 ? (
-          <div key={ idx } className={ style.gameListColumn }>
+          <div key={ idx } className={ style.gameListRow }>
             <h2>{ listNames[idx] }</h2>
             <ul className={ style.gameList }>
               {
                 gameList.map(game =>
-                  <GameItem key={ game.id } game={ game } winP={ winP } { ...gameActions } addWager={ addWager } />
+                  <GameItem key={ game.id } game={ game } { ...gameActions } addWager={ addWager } />
                 )
               }
             </ul>
@@ -69,9 +69,9 @@ export default class GamesList extends Component {
     );
 
     return (
-      <div>
+      <div className={ style.gameListOuter } >
         <h1>Today's Games</h1>
-        <div className={ style.gameListContainer }>
+        <div className={ style.gameListInner } >
           { gameListElements }
         </div>
       </div>

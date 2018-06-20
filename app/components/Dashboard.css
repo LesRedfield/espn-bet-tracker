@@ -1,4 +1,24 @@
 .dashboard {
     /*height: 500px;*/
     height: 100%;
+    border: 1px solid black;
+    margin: 2px;
+}
+
+.dashboard h1 {
+    font-size: 32px;
+}
+
+.wagerListContainer {
+    border: 1px solid black;
+    margin: 2px;
+}
+
+.wagerListContainer h2 {
+    font-size: 26px;
+}
+
+.wagerMetricsContainer {
+    border: 1px solid black;
+    margin: 2px;
 }
