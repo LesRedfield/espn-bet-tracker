@@ -44,7 +44,6 @@ export default class WagerItem extends Component {
     if (gameStarted && dateTime !== "Delayed" && dateTime !== "POSTPONED" &&
       awayScore !== '-' && homeScore !== '-' && dateTime !== '-') {
       const homeWinP = calcHomeSpreadWinP(parseInt(awayScore), parseInt(homeScore), dateTime);
-      // debugger
       teamWinP = wager.team === game.homeTeam ? homeWinP : Math.round((100 - homeWinP) * 100) / 100;
       betValue = calcBetValue(game, wager);
     }

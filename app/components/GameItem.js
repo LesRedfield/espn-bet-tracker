@@ -29,8 +29,6 @@ export default class GameItem extends Component {
   }
 
   toggleWagerForm = () => {
-    console.log('toggling');
-    // debugger
     this.setState(prevState => ({
       wagerForm: !prevState.wagerForm
     }));
@@ -54,11 +52,11 @@ export default class GameItem extends Component {
     const gameStarted = (document.getElementById(game.id).classList.contains('live') ||
                         document.getElementById(game.id).classList.contains('final')) &&
                         document.getElementById(game.id).getElementsByClassName('date-time')[0]
-                          .innerText !== "POSTPONED";
+                          .innerText !== 'POSTPONED';
 
-    let homeWinP = "N/A";
+    let homeWinP = 'N/A';
 
-    if (gameStarted && dateTime !== "Delayed" && dateTime !== "POSTPONED" &&
+    if (gameStarted && dateTime !== 'Delayed' && dateTime !== 'POSTPONED' &&
       awayScore !== '-' && homeScore !== '-' && dateTime !== '-') {
       homeWinP = calcHomeSpreadWinP(awayScore, homeScore, dateTime);
     }

@@ -15,10 +15,6 @@ export default class WagersList extends Component {
     super(props, context);
   }
 
-  componentDidMount() {
-
-  }
-
   render() {
     const { games, wagers, wagerActions } = this.props;
 
@@ -50,8 +46,8 @@ export default class WagersList extends Component {
       };
     });
 
-    const listNames = ["Completed", "Active", "Pending"];
-    const wagerLists = [completedWagers, activeWagers, pendingWagers];
+    const listNames = ['Active', 'Completed', 'Pending'];
+    const wagerLists = [activeWagers, completedWagers, pendingWagers];
 
     const wagerListElements = (
       wagerLists.map((wagerList, idx) =>

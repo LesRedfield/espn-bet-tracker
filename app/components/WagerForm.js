@@ -21,17 +21,12 @@ export default class WagerForm extends Component {
     };
   }
 
-  componentDidMount() {
-
-  }
-
   handleAddWager = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
     const { gameId, addTeam, toggleWagerForm } = this.props;
     const { pointSpread, odds, amount } = this.state;
-    console.log('add game ' + gameId);
     this.props.addWager(gameId, addTeam, pointSpread, odds, amount);
 
     this.setState({
@@ -41,8 +36,6 @@ export default class WagerForm extends Component {
     });
 
     toggleWagerForm();
-
-    // e.preventDefault();
   };
 
   handleInputChange = (event) => {

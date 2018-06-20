@@ -30,7 +30,7 @@ export default class WagerMetrics extends Component {
     const { wagers, games } = this.props;
 
     //construct array of completed and active wager objects
-    const wagerObjLists = ['final', 'live'].map(className => {
+    const wagerObjLists = ['live', 'final'].map(className => {
       return Object.keys(wagers).filter(gameId => {
         return document.getElementById(gameId).classList.contains(className);
       }).map(gameId => {
@@ -48,7 +48,7 @@ export default class WagerMetrics extends Component {
 
     listValues.push(listValues[0] + listValues[1]);
 
-    const listNames = ['Completed', 'Active', 'Current'];
+    const listNames = ['Active', 'Completed', 'Current'];
 
     return (
       <div className={ style.wagerMetricsContainer } >
