@@ -18,8 +18,12 @@ export default class WagerMetric extends Component {
 
     return (
       <div>
-        <div>{ value }</div>
-        <div>{ title }</div>
+        <div className={ style.wagerMetricValue } >
+          { value }
+        </div>
+        <div className={ style.wagerMetricTitle } >
+          { title }
+        </div>
       </div>
     );
   }

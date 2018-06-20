@@ -1,0 +1,11 @@
+.wagerMetricValue {
+    border: 1px solid black;
+    margin: 2px;
+    font-size: 26px;
+}
+
+.wagerMetricTitle {
+    border: 1px solid black;
+    margin: 2px;
+    font-size: 20px;
+}

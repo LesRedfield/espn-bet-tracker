@@ -1,0 +1,10 @@
+.wagerMetricsContainer {
+    border: 1px solid black;
+    margin: 2px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.wagerMetricContainer {
+    width: 100%;
+}
