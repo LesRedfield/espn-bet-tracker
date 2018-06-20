@@ -20,7 +20,7 @@ export default class WagerMetrics extends Component {
 
     wagerObjList.forEach(wagerObj => {
       const { game, wager } = wagerObj;
-      netValue += calcBetValue(game, wager);
+      netValue += Math.round(calcBetValue(game, wager) * 100) / 100;
     });
 
     return netValue;

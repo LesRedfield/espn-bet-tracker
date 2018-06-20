@@ -15,6 +15,10 @@ export default class WagerItem extends Component {
     super(props, context);
   }
 
+  shouldComponentUpdate(nextProps) {
+    return (JSON.stringify(this.props.game) !== JSON.stringify(nextProps.game));
+  }
+
   handleDelete = () => {
     const { wager, deleteWager } = this.props;
 
@@ -27,23 +31,27 @@ export default class WagerItem extends Component {
     const homeScore = game['home'] || '-';
     const dateTime = game['date-time'] || '-';
 
-    const pointSpread = wager.pointSpread === 0 ? "ML" : wager.pointSpread;
+    const pointSpread = wager.pointSpread === 0 ? 'ML' : wager.pointSpread;
 
     const gameStarted = (document.getElementById(game.id).classList.contains('live') ||
       document.getElementById(game.id).classList.contains('final')) &&
       document.getElementById(game.id).getElementsByClassName('date-time')[0]
-        .innerText !== "POSTPONED";
+        .innerText !== 'POSTPONED';
 
-    let betValue = "";
-    let teamWinP = "";
+    let betValue = 0;
+    let teamWinP = '';
 
     if (gameStarted && dateTime !== "Delayed" && dateTime !== "POSTPONED" &&
       awayScore !== '-' && homeScore !== '-' && dateTime !== '-') {
       const homeWinP = calcHomeSpreadWinP(parseInt(awayScore), parseInt(homeScore), dateTime);
       // debugger
-      teamWinP = wager.team === game.homeTeam ? homeWinP : parseFloat((100 - homeWinP).toFixed(2));
+      teamWinP = wager.team === game.homeTeam ? homeWinP : Math.round((100 - homeWinP) * 100) / 100;
       betValue = calcBetValue(game, wager);
     }
+
+    const prefix = betValue === 0 ? '$' : betValue > 0 ? '+$' : '-$';
+    const displayVal = betValue === parseInt(betValue) ?
+      Math.abs(betValue) : Math.abs(betValue).toFixed(2);
 
     return (
       <li className={ style.normal }>
@@ -68,7 +76,7 @@ export default class WagerItem extends Component {
               { wager.amount }
             </span>
             <span>
-              { betValue }
+              { prefix + displayVal }
             </span>
           </div>
         </div>

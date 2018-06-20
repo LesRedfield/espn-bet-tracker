@@ -16,10 +16,14 @@ export default class WagerMetric extends Component {
   render() {
     const { title, value, type } = this.props;
 
+    const prefix = value === 0 ? '$' : value > 0 ? '+$' : '-$';
+    const displayVal = value === parseInt(value) ?
+      Math.abs(value) : Math.abs(value).toFixed(2);
+
     return (
       <div>
         <div className={ style.wagerMetricValue } >
-          { value }
+          { prefix + displayVal }
         </div>
         <div className={ style.wagerMetricTitle } >
           { title }

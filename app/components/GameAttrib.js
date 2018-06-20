@@ -54,26 +54,13 @@ export default class GameAttrib extends Component {
 
     // Callback function to execute when mutations are observed
     const callback = function(id, value, mutationsList) {
-      // debugger
       for(let mutation of mutationsList) {
-        // const removedDateTime = mutationsList[0].removedNodes[0].nodeValue;
-
-
         if (mutation.type == 'childList') {
-          // console.log('A child node has been added or removed.');
-          // const newValue = this.props.attrib === 'date-time' ?
-          //   mutationsList[1].addedNodes[0].nodeValue :
-          //   mutationsList[1].target.innerText;
           const newValue = mutationsList[1].target.innerText;
 
           if (this.props.value !== newValue) {
             console.log(this.state.awayTeam + ' vs ' + this.state.homeTeam + ' ' +
               this.props.attrib + ' from ' + this.props.value + ' to ' + newValue);
-            // console.log(this.state);
-            // console.log(this.props.value);
-            // // console.log(value);
-            // console.log(newValue);
-            // // console.log(mutationsList[1].target.innerText);
             this.props.updateGameAttrib(id, this.props.attrib, newValue);
           }
         }

@@ -9,7 +9,6 @@ export default class WagersList extends Component {
     games: PropTypes.object.isRequired,
     wagers: PropTypes.object.isRequired,
     wagerActions: PropTypes.object.isRequired
-    // calcHomeSpreadWinP: PropTypes.func.isRequired
   };
 
   constructor(props, context) {
