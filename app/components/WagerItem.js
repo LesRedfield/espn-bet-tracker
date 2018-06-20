@@ -20,10 +20,13 @@ export default class WagerItem extends Component {
 
   }
 
-  calcWinP = (awayScore, homeScore, dateTime) => {
+  calcHomeWinP = (awayScore, homeScore, dateTime) => {
+    const { game, wager } = this.props;
     const { pointSpread } = this.props.wager;
 
-    const netHomeScore = homeScore + parseFloat(pointSpread) - awayScore;
+    const netHomeScore = wager.team === game.homeTeam ?
+                          homeScore + parseFloat(pointSpread) - awayScore :
+                          homeScore - parseFloat(pointSpread) - awayScore;
 
     const inning1 = parseInt(dateTime[4]);
 
@@ -45,14 +48,14 @@ export default class WagerItem extends Component {
     } else {
       console.log(innBaseOut);
       // debugger
-      return (winP[innBaseOut][netHomeScore + 0.5] + winP[innBaseOut][netHomeScore - 0.5]) / 2;
+      return parseFloat(((winP[innBaseOut][netHomeScore + 0.5] + winP[innBaseOut][netHomeScore - 0.5]) / 2).toFixed(2));
     }
   };
 
-  calcBetValue = (homeWinP) => {
+  calcBetValue = (teamWinP) => {
     const { game, wager } = this.props;
 
-    const teamWinP = wager.team === game.homeTeam ? homeWinP : 100 - homeWinP;
+    // const teamWinP = wager.team === game.homeTeam ? homeWinP : 100 - homeWinP;
 
     const risk = wager.amount;
     const reward = wager.odds > 0 ?
@@ -81,13 +84,16 @@ export default class WagerItem extends Component {
       document.getElementById(game.id).getElementsByClassName('date-time')[0]
         .innerText !== "POSTPONED";
 
-    let homeWinP = "N/A";
+    // let homeWinP = "N/A";
     let betValue = "N/A";
+    let teamWinP = "N/A";
 
     if (gameStarted && dateTime !== "Delayed" && dateTime !== "POSTPONED" &&
       awayScore !== '-' && homeScore !== '-' && dateTime !== '-') {
-      homeWinP = this.calcWinP(parseInt(awayScore), parseInt(homeScore), dateTime);
-      betValue = this.calcBetValue(homeWinP);
+      const homeWinP = this.calcHomeWinP(parseInt(awayScore), parseInt(homeScore), dateTime);
+      // debugger
+      teamWinP = wager.team === game.homeTeam ? homeWinP : parseFloat((100 - homeWinP).toFixed(2));
+      betValue = this.calcBetValue(teamWinP);
     }
 
     return (
@@ -148,7 +154,7 @@ export default class WagerItem extends Component {
                   { game['date-time'] || '-' }
                 </div>
                 <div>
-                  { homeWinP + '%' }
+                  { teamWinP + '%' }
                 </div>
               </div>
             }
