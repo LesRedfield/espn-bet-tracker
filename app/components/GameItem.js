@@ -5,7 +5,6 @@ import style from './GameItem.css';
 
 import { winP } from '../constants/WinProbs';
 
-
 export default class GameItem extends Component {
 
   static propTypes = {
@@ -53,6 +52,7 @@ export default class GameItem extends Component {
     if (dateTime === "FINAL" || dateTime === "Final" || dateTime.slice(0, 5) === "FINAL") {
       return netHomeScore > 0 ? 100 : 0;
     } else {
+      console.log(dateTime);
       console.log(innBaseOut);
       return winP[innBaseOut][netHomeScore];
     }

@@ -51,7 +51,7 @@ export default class WagerForm extends Component {
     const name = target.name;
 
     this.setState({
-      [name]: parseFloat(value)
+      [name]: value
     });
   };
 

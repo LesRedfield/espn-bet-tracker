@@ -26,8 +26,8 @@ export default class WagerMetrics extends Component {
 
     completedWagers.forEach(wager => {
       const wagerNetScore = wager.team === wager.awayTeam ?
-        wager.awayScore + wager.pointSpread - wager.homeScore :
-        wager.homeScore + wager.pointSpread - wager.awayScore;
+        parseInt(wager.awayScore) + parseFloat(wager.pointSpread) - parseInt(wager.homeScore) :
+        parseInt(wager.homeScore) + parseFloat(wager.pointSpread) - parseInt(wager.awayScore);
 
       let wagerNetAmount = 0 - wager.amount;
 
