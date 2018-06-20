@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-
 import style from './WagerItem.css';
 
-import { winP } from '../constants/WinProbs';
+import { calcHomeSpreadWinP } from '../utils/helpers';
 
 export default class WagerItem extends Component {
 
@@ -16,46 +15,8 @@ export default class WagerItem extends Component {
     super(props, context);
   }
 
-  componentDidMount() {
-
-  }
-
-  calcHomeWinP = (awayScore, homeScore, dateTime) => {
-    const { game, wager } = this.props;
-    const { pointSpread } = this.props.wager;
-
-    const netHomeScore = wager.team === game.homeTeam ?
-                          homeScore + parseFloat(pointSpread) - awayScore :
-                          homeScore - parseFloat(pointSpread) - awayScore;
-
-    const inning1 = parseInt(dateTime[4]);
-
-    const inning2 = dateTime.slice(0, 3);
-
-    let innBaseOut = (inning2 === "Mid" || inning2 === "Bot") ?
-      (1000 * inning1) + 210 : inning2 === "Top" ?
-        (1000 * inning1) + 110 : (1000 * (inning1 + 1)) + 110;
-
-    if (innBaseOut > 10000) {
-      innBaseOut -= 1000;
-    }
-
-    if (dateTime === "FINAL" || dateTime === "Final" || dateTime.slice(0, 5) === "FINAL") {
-      return netHomeScore > 0 ? 100 : 0;
-    } else if (netHomeScore === parseInt(netHomeScore)) {
-      console.log(innBaseOut);
-      return winP[innBaseOut][netHomeScore];
-    } else {
-      console.log(innBaseOut);
-      // debugger
-      return parseFloat(((winP[innBaseOut][netHomeScore + 0.5] + winP[innBaseOut][netHomeScore - 0.5]) / 2).toFixed(2));
-    }
-  };
-
   calcBetValue = (teamWinP) => {
-    const { game, wager } = this.props;
-
-    // const teamWinP = wager.team === game.homeTeam ? homeWinP : 100 - homeWinP;
+    const { wager } = this.props;
 
     const risk = wager.amount;
     const reward = wager.odds > 0 ?
@@ -84,13 +45,12 @@ export default class WagerItem extends Component {
       document.getElementById(game.id).getElementsByClassName('date-time')[0]
         .innerText !== "POSTPONED";
 
-    // let homeWinP = "N/A";
     let betValue = "N/A";
     let teamWinP = "N/A";
 
     if (gameStarted && dateTime !== "Delayed" && dateTime !== "POSTPONED" &&
       awayScore !== '-' && homeScore !== '-' && dateTime !== '-') {
-      const homeWinP = this.calcHomeWinP(parseInt(awayScore), parseInt(homeScore), dateTime);
+      const homeWinP = calcHomeSpreadWinP(parseInt(awayScore), parseInt(homeScore), dateTime);
       // debugger
       teamWinP = wager.team === game.homeTeam ? homeWinP : parseFloat((100 - homeWinP).toFixed(2));
       betValue = this.calcBetValue(teamWinP);

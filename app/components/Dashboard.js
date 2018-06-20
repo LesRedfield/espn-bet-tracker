@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import WagerMetrics from './WagerMetrics';
 import WagersList from './WagersList';
-import NewWager from './NewWager';
 
 import style from './Dashboard.css';
-// import _ from "lodash";
 
 export default class Dashboard extends Component {
 
@@ -27,10 +25,6 @@ export default class Dashboard extends Component {
     };
   }
 
-  componentDidMount() {
-
-  }
-
   render() {
     const { games, wagers, wagerActions } = this.props;
 
@@ -40,10 +34,17 @@ export default class Dashboard extends Component {
           ESPN Bet Tracker
         </h1>
         <div className={ style.wagerMetricsContainer } >
-          <WagerMetrics wagers={ wagers } games={ games } />
+          <WagerMetrics
+            wagers={ wagers }
+            games={ games }
+          />
         </div>
         <div className={ style.wagerListContainer } >
-          <WagersList wagers={ wagers } games={ games } wagerActions={ wagerActions } />
+          <WagersList
+            wagers={ wagers }
+            games={ games }
+            wagerActions={ wagerActions }
+          />
         </div>
       </div>
     );

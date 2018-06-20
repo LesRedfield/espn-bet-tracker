@@ -3,7 +3,7 @@ import GameAttrib from './GameAttrib';
 import WagerForm from './WagerForm';
 import style from './GameItem.css';
 
-import { winP } from '../constants/WinProbs';
+import { calcHomeSpreadWinP } from '../utils/helpers';
 
 export default class GameItem extends Component {
 
@@ -27,36 +27,6 @@ export default class GameItem extends Component {
     return (JSON.stringify(this.props.game) !== JSON.stringify(nextProps.game)) ||
             this.state.wagerForm !== nextState.wagerForm;
   }
-
-  componentDidMount() {
-
-  }
-
-  calcWinP = (awayScore, homeScore, dateTime) => {
-    // const { winP } = this.props;
-
-    const netHomeScore = homeScore - awayScore;
-
-    const inning1 = parseInt(dateTime[4]);
-
-    const inning2 = dateTime.slice(0, 3);
-
-    let innBaseOut = (inning2 === "Mid" || inning2 === "Bot") ?
-      (1000 * inning1) + 210 : inning2 === "Top" ?
-        (1000 * inning1) + 110 : (1000 * (inning1 + 1)) + 110;
-
-    if (innBaseOut > 10000) {
-      innBaseOut -= 1000;
-    }
-
-    if (dateTime === "FINAL" || dateTime === "Final" || dateTime.slice(0, 5) === "FINAL") {
-      return netHomeScore > 0 ? 100 : 0;
-    } else {
-      console.log(dateTime);
-      console.log(innBaseOut);
-      return winP[innBaseOut][netHomeScore];
-    }
-  };
 
   toggleWagerForm = () => {
     console.log('toggling');
@@ -90,7 +60,7 @@ export default class GameItem extends Component {
 
     if (gameStarted && dateTime !== "Delayed" && dateTime !== "POSTPONED" &&
       awayScore !== '-' && homeScore !== '-' && dateTime !== '-') {
-      homeWinP = this.calcWinP(awayScore, homeScore, dateTime);
+      homeWinP = calcHomeSpreadWinP(awayScore, homeScore, dateTime);
     }
 
     const element = (

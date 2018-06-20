@@ -13,10 +13,6 @@ export default class WagerMetric extends Component {
     super(props, context);
   }
 
-  componentDidMount() {
-
-  }
-
   render() {
     const { title, value, type } = this.props;
 

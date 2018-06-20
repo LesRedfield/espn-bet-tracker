@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-// import GameItem from './GameItem';
 import GamesList from './GamesList';
 import Dashboard from './Dashboard';
 import style from './MainSection.css';
-// import _ from "lodash";
 
 export default class MainSection extends Component {
 
@@ -40,9 +38,16 @@ export default class MainSection extends Component {
 
     return (
       <section className={ style.main }>
-        <Dashboard games={ games } wagers={ wagers } wagerActions={ wagerActions }/>
-        <GamesList games={ games } gameActions={ gameActions } addWager={ wagerActions.addWager }/>
-
+        <Dashboard
+          games={ games }
+          wagers={ wagers }
+          wagerActions={ wagerActions }
+        />
+        <GamesList
+          games={ games }
+          gameActions={ gameActions }
+          addWager={ wagerActions.addWager }
+        />
       </section>
     );
   }

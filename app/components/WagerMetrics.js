@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import WagerMetric from './WagerMetric';
 import style from './WagerMetrics.css';
 
-import { winP } from '../constants/WinProbs';
+import { calcHomeSpreadWinP } from '../utils/helpers';
 
 export default class WagerMetrics extends Component {
 
@@ -15,14 +15,8 @@ export default class WagerMetrics extends Component {
     super(props, context);
   }
 
-  componentDidMount() {
-
-  }
-
   calcCompletedNet = (completedWagers) => {
     let completedNet = 0;
-
-    // debugger
 
     completedWagers.forEach(wager => {
       const wagerNetScore = wager.team === wager.awayTeam ?
@@ -37,12 +31,8 @@ export default class WagerMetrics extends Component {
           ((wager.amount / wager.odds) * -100 );
       }
 
-      // debugger
-
       completedNet += wagerNetAmount;
     });
-
-    // debugger
 
     return completedNet;
   };
@@ -54,19 +44,13 @@ export default class WagerMetrics extends Component {
       return games[gameId]['date-time'].slice(0, 5) === 'FINAL';
     });
 
-    // debugger
-
     const completedWagerIds = completedGameIds.filter(gameId => {
       return wagers[gameId];
     });
 
-    // debugger
-
     const completedWagers = completedWagerIds.map(gameId => {
       const game = games[gameId];
       const wager = wagers[gameId];
-
-      // debugger
 
       return {
         gameId,
@@ -81,8 +65,6 @@ export default class WagerMetrics extends Component {
     });
 
     const completedNet = this.calcCompletedNet(completedWagers);
-
-    // debugger
 
     return (
       <div>

@@ -1,10 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import GameItem from './GameItem';
 import style from './GamesList.css';
-import _ from "lodash";
-
-// import * as Papa from 'papaparse';
-// import { winP } from '../constants/WinProbs';
 
 export default class GamesList extends Component {
 
@@ -18,14 +14,8 @@ export default class GamesList extends Component {
     super(props, context);
   }
 
-  componentDidMount() {
-
-  }
-
   render() {
-    // debugger
     const { games, gameActions, addWager } = this.props;
-    // const { winP } = this.state;
 
     const activeGames = Object.keys(games).filter(gameId => {
       return document.getElementById(gameId).classList.contains('live');
@@ -57,7 +47,12 @@ export default class GamesList extends Component {
             <ul className={ style.gameList }>
               {
                 gameList.map(game =>
-                  <GameItem key={ game.id } game={ game } { ...gameActions } addWager={ addWager } />
+                  <GameItem
+                    key={ game.id }
+                    game={ game }
+                    { ...gameActions }
+                    addWager={ addWager }
+                  />
                 )
               }
             </ul>
