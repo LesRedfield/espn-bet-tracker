@@ -46,8 +46,8 @@ export default class WagersList extends Component {
       };
     });
 
-    const listNames = ['Active', 'Completed', 'Pending'];
-    const wagerLists = [activeWagers, completedWagers, pendingWagers];
+    const listNames = ['Completed', 'Active', 'Pending'];
+    const wagerLists = [completedWagers, activeWagers, pendingWagers];
 
     const wagerListElements = (
       wagerLists.map((wagerList, idx) =>
