@@ -26,7 +26,7 @@ export function calcHomeSpreadWinP(awayScore, homeScore, dateTime, homePointSpre
   }
 }
 
-export function calcBetValue(game, wager) {
+export function calcWagerValue(game, wager) {
   const { homeTeam } = game;
   const awayScore = parseInt(game.away);
   const homeScore = parseInt(game.home);

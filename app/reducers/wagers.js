@@ -4,21 +4,7 @@ import _ from 'lodash';
 const initialState = {};
 
 const actionsMap = {
-  // [ActionTypes.ADD_WAGER](state, action) {
-  //   // debugger
-  //   return {
-  //     ...state,
-  //     [action.gameId]: {
-  //       gameId: action.gameId,
-  //       team: action.team,
-  //       pointSpread: action.pointSpread,
-  //       odds: action.odds,
-  //       amount: action.amount
-  //     }
-  //   };
-  // },
   [ActionTypes.ADD_WAGER](state, action) {
-    // debugger
     const id = Object.keys(state).reduce((maxId, wagerId) => Math.max(wagerId, maxId), -1) + 1;
     return {
       ...state,

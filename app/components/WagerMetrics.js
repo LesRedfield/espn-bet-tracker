@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import WagerMetric from './WagerMetric';
 import style from './WagerMetrics.css';
 
-import { calcBetValue } from '../utils/helpers';
+import { calcWagerValue } from '../utils/helpers';
 
 export default class WagerMetrics extends Component {
 
@@ -19,8 +19,9 @@ export default class WagerMetrics extends Component {
     let netValue = 0;
 
     wagerObjList.forEach(wagerObj => {
-      const { game, wager } = wagerObj;
-      netValue += Math.round(calcBetValue(game, wager) * 100) / 100;
+      // const { game, wager } = wagerObj;
+      // netValue += Math.round(calcWagerValue(wagerObj) * 100) / 100;
+      netValue += Math.round(0 * 100) / 100;
     });
 
     return netValue;
@@ -30,20 +31,69 @@ export default class WagerMetrics extends Component {
     const { wagers, games } = this.props;
 
     //construct array of completed and active wager objects
-    const wagerObjLists = ['final', 'live'].map(className => {
-      return Object.keys(wagers).filter(wagerId => {
+    // const wagerObjLists = ['final', 'live'].map(className => {
+    //   return Object.keys(wagers).filter(wagerId => {
+    //
+    //     return document.getElementById(gameId).classList.contains(className);
+    //   }).map(gameId => {
+    //     return {
+    //       gameId,
+    //       game: games[gameId],
+    //       wager: wagers[gameId]
+    //     };
+    //   });
+    // });
 
-        return document.getElementById(gameId).classList.contains(className);
-      }).map(gameId => {
+    const completedWagerObjs = Object.keys(wagers).filter(wagerId => {
+      return wagers[wagerId].bets.every(bet => {
+        return document.getElementById(bet.gameId).classList.contains('final');
+      });
+    }).map(wagerId => {
+      const { bets, odds, amount } = wagers[wagerId];
+      const betObjs = bets.map(bet => {
         return {
-          gameId,
-          game: games[gameId],
-          wager: wagers[gameId]
+          side: bet.side,
+          game: games[bet.gameId]
         };
       });
+
+      return {
+        betObjs,
+        odds,
+        amount
+      };
     });
 
-    const listValues = wagerObjLists.map(wagerObjList => {
+
+    const activeWagerObjs = Object.keys(wagers).filter(wagerId => {
+      return wagers[wagerId].bets.some(bet => {
+        return !document.getElementById(bet.gameId).classList.contains('final');
+      });
+    }).filter(wagerId => {
+      return wagers[wagerId].bets.some(bet => {
+        return document.getElementById(bet.gameId).classList.contains('live');
+      });
+    }).map(wagerId => {
+      const { bets, odds, amount } = wagers[wagerId];
+      const betObjs = bets.map(bet => {
+        return {
+          side: bet.side,
+          game: games[bet.gameId]
+        };
+      });
+
+      return {
+        betObjs,
+        odds,
+        amount
+      };
+    });
+
+    // const listValues = wagerObjLists.map(wagerObjList => {
+    //   return this.calcListValue(wagerObjList);
+    // });
+
+    const listValues = [completedWagerObjs, activeWagerObjs].map(wagerObjList => {
       return this.calcListValue(wagerObjList);
     });
 

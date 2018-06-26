@@ -18,51 +18,118 @@ export default class WagersList extends Component {
   render() {
     const { games, wagers, wagerActions } = this.props;
 
-    const completedWagers = Object.keys(wagers).filter(gameId => {
-      return document.getElementById(gameId).classList.contains('final');
-    }).map(gameId => {
+    // const completedWagers = Object.keys(wagers).filter(gameId => {
+    //   return document.getElementById(gameId).classList.contains('final');
+    // }).map(gameId => {
+    //   return {
+    //     game: games[gameId],
+    //     wager: wagers[gameId]
+    //   };
+    // });
+    //
+    // const activeWagers = Object.keys(wagers).filter(gameId => {
+    //   return document.getElementById(gameId).classList.contains('live');
+    // }).map(gameId => {
+    //   return {
+    //     game: games[gameId],
+    //     wager: wagers[gameId]
+    //   };
+    // });
+    //
+    // const pendingWagers = Object.keys(wagers).filter(gameId => {
+    //   return (!document.getElementById(gameId).classList.contains('final') &&
+    //           !document.getElementById(gameId).classList.contains('live'));
+    // }).map(gameId => {
+    //   return {
+    //     game: games[gameId],
+    //     wager: wagers[gameId]
+    //   };
+    // });
+
+    const completedWagerObjs = Object.keys(wagers).filter(wagerId => {
+      return wagers[wagerId].bets.every(bet => {
+        return document.getElementById(bet.gameId).classList.contains('final');
+      });
+    }).map(wagerId => {
+      const { bets, odds, amount } = wagers[wagerId];
+      const betObjs = bets.map(bet => {
+        return {
+          side: bet.side,
+          game: games[bet.gameId]
+        };
+      });
+
       return {
-        game: games[gameId],
-        wager: wagers[gameId]
+        wagerId,
+        betObjs,
+        odds,
+        amount
       };
     });
 
-    const activeWagers = Object.keys(wagers).filter(gameId => {
-      return document.getElementById(gameId).classList.contains('live');
-    }).map(gameId => {
+    const activeWagerObjs = Object.keys(wagers).filter(wagerId => {
+      return wagers[wagerId].bets.some(bet => {
+        return !document.getElementById(bet.gameId).classList.contains('final');
+      });
+    }).filter(wagerId => {
+      return wagers[wagerId].bets.some(bet => {
+        return document.getElementById(bet.gameId).classList.contains('live');
+      });
+    }).map(wagerId => {
+      const { bets, odds, amount } = wagers[wagerId];
+      const betObjs = bets.map(bet => {
+        return {
+          side: bet.side,
+          game: games[bet.gameId]
+        };
+      });
+
       return {
-        game: games[gameId],
-        wager: wagers[gameId]
+        wagerId,
+        betObjs,
+        odds,
+        amount
       };
     });
 
-    const pendingWagers = Object.keys(wagers).filter(gameId => {
-      return (!document.getElementById(gameId).classList.contains('final') &&
-              !document.getElementById(gameId).classList.contains('live'));
-    }).map(gameId => {
+    const futureWagerObjs = Object.keys(wagers).filter(wagerId => {
+      return wagers[wagerId].bets.every(bet => {
+        return !document.getElementById(bet.gameId).classList.contains('final') &&
+          !document.getElementById(bet.gameId).classList.contains('live');
+      });
+    }).map(wagerId => {
+      const { bets, odds, amount } = wagers[wagerId];
+      const betObjs = bets.map(bet => {
+        return {
+          side: bet.side,
+          game: games[bet.gameId]
+        };
+      });
+
       return {
-        game: games[gameId],
-        wager: wagers[gameId]
+        wagerId,
+        betObjs,
+        odds,
+        amount
       };
     });
 
-    const listNames = ['Completed', 'Active', 'Pending'];
-    const wagerLists = [completedWagers, activeWagers, pendingWagers];
+    const listNames = ['Completed', 'Active', 'Future'];
+    const wagerObjLists = [completedWagerObjs, activeWagerObjs, futureWagerObjs];
 
     const wagerListElements = (
-      wagerLists.map((wagerList, idx) =>
+      wagerObjLists.map((wagerObjList, idx) =>
         <div key={ idx } className={ style.wagerListColumn }>
           <h2>{ listNames[idx] }</h2>
           {
-            wagerList.length > 0 ? (
+            wagerObjList.length > 0 ? (
               <ul>
                 {
-                  wagerList.map(wagerObj =>
+                  wagerObjList.map((wagerObj, idx) =>
                     <WagerItem
-                      key={ wagerObj.game.id }
-                      wager={ wagerObj.wager }
-                      game={ wagerObj.game }
-                      { ...wagerActions }
+                      key={ idx }
+                      wagerObj={ wagerObj }
+                      deleteWager={ wagerActions.deleteWager }
                     />
                   )
                 }

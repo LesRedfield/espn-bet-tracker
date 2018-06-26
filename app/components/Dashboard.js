@@ -14,15 +14,6 @@ export default class Dashboard extends Component {
 
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-      addingWager: 'button',
-      gameId: '0',
-      team: 'none',
-      pointSpread: 0,
-      odds: 0,
-      amount: 0
-    };
   }
 
   render() {
