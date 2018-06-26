@@ -5,19 +5,17 @@ import style from './WagerForm.css';
 export default class WagerForm extends Component {
 
   static propTypes = {
-    gameId: PropTypes.string.isRequired,
-    addTeam: PropTypes.string.isRequired,
+    bets: PropTypes.array.isRequired,
     addWager: PropTypes.func.isRequired,
-    toggleWagerForm: PropTypes.func.isRequired
+    clearWagerForm: PropTypes.func.isRequired
   };
 
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      pointSpread: 0,
       odds: 150,
-      amount: 200
+      amount: 100
     };
   }
 
@@ -25,17 +23,16 @@ export default class WagerForm extends Component {
     e.preventDefault();
     e.stopPropagation();
 
-    const { gameId, addTeam, toggleWagerForm } = this.props;
-    const { pointSpread, odds, amount } = this.state;
-    this.props.addWager(gameId, addTeam, pointSpread, odds, amount);
+    const { bets, clearWagerForm } = this.props;
+    const { odds, amount } = this.state;
+    this.props.addWager(bets, odds, amount);
 
-    this.setState({
-      pointSpread: 0,
-      odds: 0,
-      amount: 0
-    });
+    // this.setState({
+    //   odds: 0,
+    //   amount: 0
+    // });
 
-    toggleWagerForm();
+    clearWagerForm();
   };
 
   handleInputChange = (event) => {
@@ -49,40 +46,31 @@ export default class WagerForm extends Component {
   };
 
   render() {
-    const { addTeam, toggleWagerForm } = this.props;
-    const { pointSpread, odds, amount } = this.state;
+    const { bets } = this.props;
+    const { odds, amount } = this.state;
 
     return (
       <div className={ style.wagerFormContainer }>
         <div className={ style.wagerFormHeader }>
-          <div>
-            { addTeam }
+          <div className={ style.betList }>
+            {
+              bets.map((bet, idx) =>
+                <div
+                  key={ idx }
+                  className={ style.betItem }
+                >
+                  { bet.side }
+                </div>
+              )
+            }
           </div>
-          <button
-            className={ style.destroy }
-            onClick={ toggleWagerForm }
-          />
+          {/*<button*/}
+            {/*className={ style.destroy }*/}
+            {/*onClick={ toggleWagerForm }*/}
+          {/*/>*/}
         </div>
         <form onSubmit={ this.handleAddWager } >
           <div className={ style.wagerFormBody } >
-            <div className={ style.wagerFormColumn } >
-              <div>
-                Line
-              </div>
-              <div>
-                <select
-                  name="pointSpread"
-                  value={ pointSpread }
-                  onChange={ this.handleInputChange }
-                >
-                  <option value="-2.5">-2.5</option>
-                  <option value="-1.5">-1.5</option>
-                  <option value="0">ML</option>
-                  <option value="+1.5">+1.5</option>
-                  <option value="+2.5">+2.5</option>
-                </select>
-              </div>
-            </div>
             <div className={ style.wagerFormColumn } >
               <div>
                 Odds

@@ -1,7 +1,7 @@
 import * as types from '../constants/ActionTypes';
 
-export function addWager(gameId, team, pointSpread, odds, amount) {
-  return { type: types.ADD_WAGER, gameId, team, pointSpread, odds, amount };
+export function addWager(bets, odds, amount) {
+  return { type: types.ADD_WAGER, bets, odds, amount };
 }
 
 export function deleteWager(id) {

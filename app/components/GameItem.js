@@ -11,41 +11,42 @@ export default class GameItem extends Component {
     game: PropTypes.object.isRequired,
     editGame: PropTypes.func.isRequired,
     updateGameAttrib: PropTypes.func.isRequired,
-    addWager: PropTypes.func.isRequired
+    // addWager: PropTypes.func.isRequired,
+    addBet: PropTypes.func.isRequired
   };
 
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      wagerForm: false,
-      addTeam: 'none'
-    };
+    // this.state = {
+    //   wagerForm: false,
+    //   addTeam: 'none'
+    // };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return (JSON.stringify(this.props.game) !== JSON.stringify(nextProps.game)) ||
-            this.state.wagerForm !== nextState.wagerForm;
+    return (JSON.stringify(this.props.game) !== JSON.stringify(nextProps.game));
+      // || this.state.wagerForm !== nextState.wagerForm;
   }
 
-  toggleWagerForm = () => {
-    this.setState(prevState => ({
-      wagerForm: !prevState.wagerForm
-    }));
-  };
+  // toggleWagerForm = () => {
+  //   this.setState(prevState => ({
+  //     wagerForm: !prevState.wagerForm
+  //   }));
+  // };
 
-  handleAddTeam = (gameId, addTeam) => {
-    this.setState({
-      gameId,
-      addTeam
-    });
-
-    this.toggleWagerForm();
-  };
+  // handleAddTeam = (gameId, addTeam) => {
+  //   this.setState({
+  //     gameId,
+  //     addTeam
+  //   });
+  //
+  //   this.toggleWagerForm();
+  // };
 
   render() {
-    const { game, updateGameAttrib, addWager } = this.props;
-    const { wagerForm, addTeam } = this.state;
+    const { game, updateGameAttrib, addBet } = this.props;
+    // const { wagerForm, addTeam } = this.state;
     const awayScore = game['away'] || '-';
     const homeScore = game['home'] || '-';
     const dateTime = game['date-time'] || '-';
@@ -68,11 +69,11 @@ export default class GameItem extends Component {
             <div>
               <div
                 className={ style.addTeam }
-                onClick={ this.handleAddTeam.bind(this, game.id, game.awayTeam) }
+                onClick={ addBet.bind(this, game.id, game.awayTeam) }
               >{ game.awayTeam }</div>
               <div
                 className={ style.addTeam }
-                onClick={ this.handleAddTeam.bind(this, game.id, game.homeTeam) }
+                onClick={ addBet.bind(this, game.id, game.homeTeam) }
               >{ game.homeTeam }</div>
             </div>
           </div>
@@ -115,16 +116,16 @@ export default class GameItem extends Component {
             </div>
           </div>
         </label>
-        <div>
-          { wagerForm &&
-            <WagerForm
-              gameId={ game.id }
-              addTeam={ addTeam }
-              addWager={ addWager }
-              toggleWagerForm={ this.toggleWagerForm }
-            />
-          }
-        </div>
+        {/*<div>*/}
+          {/*{ wagerForm &&*/}
+            {/*<WagerForm*/}
+              {/*gameId={ game.id }*/}
+              {/*addTeam={ addTeam }*/}
+              {/*addWager={ addWager }*/}
+              {/*// toggleWagerForm={ this.toggleWagerForm }*/}
+            {/*/>*/}
+          {/*}*/}
+        {/*</div>*/}
       </div>
     );
 

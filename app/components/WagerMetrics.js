@@ -31,7 +31,8 @@ export default class WagerMetrics extends Component {
 
     //construct array of completed and active wager objects
     const wagerObjLists = ['final', 'live'].map(className => {
-      return Object.keys(wagers).filter(gameId => {
+      return Object.keys(wagers).filter(wagerId => {
+
         return document.getElementById(gameId).classList.contains(className);
       }).map(gameId => {
         return {

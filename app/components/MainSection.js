@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import GamesList from './GamesList';
 import Dashboard from './Dashboard';
+import WagerForm from './WagerForm';
 import style from './MainSection.css';
 
 export default class MainSection extends Component {
@@ -14,6 +15,10 @@ export default class MainSection extends Component {
 
   constructor(props, context) {
     super(props, context);
+
+    this.state = {
+      bets: []
+    };
   }
 
   componentDidMount() {
@@ -33,8 +38,28 @@ export default class MainSection extends Component {
     }, this);
   }
 
+  addBet = (gameId, side) => {
+    //need to validate that gameId-side combo isn't already added to this.state.bets
+    this.setState(prevState => {
+      bets: prevState.bets.push({
+        gameId,
+        side
+      });
+    });
+  };
+
+  clearWagerForm = () => {
+    this.setState({
+      bets: []
+    });
+  };
+
+  //need remove bet from wager form function
+
   render() {
     const { games, wagers, gameActions, wagerActions } = this.props;
+
+    const { bets } = this.state;
 
     return (
       <section className={ style.main }>
@@ -42,11 +67,21 @@ export default class MainSection extends Component {
           games={ games }
           wagers={ wagers }
           wagerActions={ wagerActions }
+          bets={ this.state.bets }
         />
+        {
+          bets.length > 0 &&
+            <WagerForm
+              bets={ bets }
+              addWager={ wagerActions.addWager }
+              clearWagerForm={ this.clearWagerForm }
+            />
+        }
         <GamesList
           games={ games }
           gameActions={ gameActions }
-          addWager={ wagerActions.addWager }
+          // addWager={ wagerActions.addWager }
+          addBet={ this.addBet }
         />
       </section>
     );

@@ -7,7 +7,8 @@ export default class GamesList extends Component {
   static propTypes = {
     games: PropTypes.object.isRequired,
     gameActions: PropTypes.object.isRequired,
-    addWager: PropTypes.func.isRequired
+    // addWager: PropTypes.func.isRequired,
+    addBet: PropTypes.func.isRequired
   };
 
   constructor(props, context) {
@@ -15,7 +16,7 @@ export default class GamesList extends Component {
   }
 
   render() {
-    const { games, gameActions, addWager } = this.props;
+    const { games, gameActions, addBet } = this.props;
 
     const activeGames = Object.keys(games).filter(gameId => {
       return document.getElementById(gameId).classList.contains('live');
@@ -51,7 +52,8 @@ export default class GamesList extends Component {
                     key={ game.id }
                     game={ game }
                     { ...gameActions }
-                    addWager={ addWager }
+                    // addWager={ addWager }
+                    addBet={ addBet }
                   />
                 )
               }
