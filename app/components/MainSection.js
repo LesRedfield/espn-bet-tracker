@@ -63,19 +63,24 @@ export default class MainSection extends Component {
 
     return (
       <section className={ style.main }>
-        <Dashboard
-          games={ games }
-          wagers={ wagers }
-          wagerActions={ wagerActions }
-          bets={ this.state.bets }
-        />
+        <h1>
+          ESPN Bet Tracker
+        </h1>
         {
-          bets.length > 0 &&
+          bets.length > 0 ? (
             <WagerForm
               bets={ bets }
               addWager={ wagerActions.addWager }
               clearWagerForm={ this.clearWagerForm }
             />
+          ) : (
+            <Dashboard
+              games={ games }
+              wagers={ wagers }
+              wagerActions={ wagerActions }
+              bets={ this.state.bets }
+            />
+          )
         }
         <GamesList
           games={ games }

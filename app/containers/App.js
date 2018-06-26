@@ -34,8 +34,11 @@ export default class App extends Component {
 
     return (
       <div className={style.normal}>
-        <MainSection games={ games } wagers={ wagers }
-                     gameActions={ gameActions } wagerActions={ wagerActions } />
+        <MainSection games={ games }
+                     wagers={ wagers }
+                     gameActions={ gameActions }
+                     wagerActions={ wagerActions }
+        />
       </div>
     );
   }

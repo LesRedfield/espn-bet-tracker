@@ -21,9 +21,9 @@ export default class Dashboard extends Component {
 
     return (
       <div className={ style.dashboard }>
-        <h1>
-          ESPN Bet Tracker
-        </h1>
+        {/*<h1>*/}
+          {/*ESPN Bet Tracker*/}
+        {/*</h1>*/}
         <div className={ style.wagerMetricsContainer } >
           <WagerMetrics
             wagers={ wagers }

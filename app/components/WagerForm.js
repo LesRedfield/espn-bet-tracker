@@ -46,11 +46,14 @@ export default class WagerForm extends Component {
   };
 
   render() {
-    const { bets } = this.props;
+    const { bets, clearWagerForm } = this.props;
     const { odds, amount } = this.state;
 
     return (
       <div className={ style.wagerFormContainer }>
+        <h2>
+          Add Wager
+        </h2>
         <div className={ style.wagerFormHeader }>
           <div className={ style.betList }>
             {
@@ -64,10 +67,6 @@ export default class WagerForm extends Component {
               )
             }
           </div>
-          {/*<button*/}
-            {/*className={ style.destroy }*/}
-            {/*onClick={ toggleWagerForm }*/}
-          {/*/>*/}
         </div>
         <form onSubmit={ this.handleAddWager } >
           <div className={ style.wagerFormBody } >
@@ -102,6 +101,10 @@ export default class WagerForm extends Component {
           <div className={ style.wagerFormFooter } >
             <input type="submit" value="Submit" />
           </div>
+          <button
+            className={ style.destroy }
+            onClick={ clearWagerForm }
+          />
         </form>
       </div>
     );
