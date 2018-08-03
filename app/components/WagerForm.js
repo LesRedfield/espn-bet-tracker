@@ -14,6 +14,7 @@ export default class WagerForm extends Component {
     super(props, context);
 
     this.state = {
+      betOdds: {},
       odds: 150,
       amount: 100
     };
@@ -24,8 +25,16 @@ export default class WagerForm extends Component {
     e.stopPropagation();
 
     const { bets, clearWagerForm } = this.props;
-    const { odds, amount } = this.state;
-    this.props.addWager(bets, odds, amount);
+    const { betOdds, odds, amount } = this.state;
+
+    const betObjs = bets.map(bet => {
+      return {
+        odds: betOdds[bet.side] || -120,
+        gameId: bet.gameId,
+        side: bet.side
+      };
+    });
+    this.props.addWager(betObjs, odds, amount);
 
     // this.setState({
     //   odds: 0,
@@ -45,25 +54,29 @@ export default class WagerForm extends Component {
     });
   };
 
+  updateBetOdds = (side, value) => {
+    const betOdds = Object.assign({}, this.state.betOdds);
+    betOdds[side] = parseInt(value);
+    this.setState({ betOdds });
+  };
+
   render() {
     const { bets, clearWagerForm } = this.props;
     const { odds, amount } = this.state;
 
     return (
-      <div className={ style.wagerFormContainer }>
+      <div className={ style.wagerFormContainer } >
         <h2>
           Add Wager
         </h2>
-        <div className={ style.wagerFormHeader }>
+        <div className={ style.wagerFormHeader } >
           <div className={ style.betList }>
             {
               bets.map((bet, idx) =>
-                <div
-                  key={ idx }
-                  className={ style.betItem }
-                >
-                  { bet.side }
-                </div>
+                <WagerFormInput key={ idx }
+                                bet={ bet }
+                                idx={ idx }
+                                updateBetOdds={ this.updateBetOdds }/>
               )
             }
           </div>
@@ -109,4 +122,49 @@ export default class WagerForm extends Component {
       </div>
     );
   }
+}
+
+
+class WagerFormInput extends Component {
+
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      betOdds: -120
+    };
+  }
+
+  render() {
+    // const { bet, idx } = this.props;
+
+    return (
+      <div className={ style.betItem }>
+        <span>{ this.props.bet.side }</span>
+        <div>
+          Odds
+        </div>
+        <span>
+          <input
+            name="betOdds"
+            type="number"
+            value={ this.state.betOdds }
+            onChange={ this.handleInputChange.bind(this, this.props.bet.side) }
+          />
+        </span>
+      </div>
+    );
+  }
+
+  handleInputChange = (side, event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+
+    this.props.updateBetOdds(side, value);
+  };
 }

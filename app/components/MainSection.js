@@ -66,22 +66,22 @@ export default class MainSection extends Component {
         <h1>
           ESPN Bet Tracker
         </h1>
-        {
-          bets.length > 0 ? (
-            <WagerForm
-              bets={ bets }
-              addWager={ wagerActions.addWager }
-              clearWagerForm={ this.clearWagerForm }
-            />
-          ) : (
-            <Dashboard
-              games={ games }
-              wagers={ wagers }
-              wagerActions={ wagerActions }
-              bets={ this.state.bets }
-            />
-          )
-        }
+          {
+            bets.length > 0 ? (
+              <WagerForm
+                bets={ bets }
+                addWager={ wagerActions.addWager }
+                clearWagerForm={ this.clearWagerForm }
+              />
+            ) : (
+              <Dashboard
+                games={ games }
+                wagers={ wagers }
+                wagerActions={ wagerActions }
+                bets={ this.state.bets }
+              />
+            )
+          }
         <GamesList
           games={ games }
           gameActions={ gameActions }

@@ -47,13 +47,15 @@ export default class WagersList extends Component {
     // });
 
     const completedWagerObjs = Object.keys(wagers).filter(wagerId => {
-      return wagers[wagerId].bets.every(bet => {
-        return document.getElementById(bet.gameId).classList.contains('final');
-      });
+      const areAllBetsFinal = wagers[wagerId].bets.every(bet => document.getElementById(bet.gameId).classList.contains('final'));
+      const didAnyBetsLose = wagers[wagerId].bets.some(bet => document.getElementById(bet.gameId).classList.contains('final') && this.isBetLosing(bet));
+
+      return areAllBetsFinal || didAnyBetsLose;
     }).map(wagerId => {
       const { bets, odds, amount } = wagers[wagerId];
       const betObjs = bets.map(bet => {
         return {
+          odds: bet.odds,
           side: bet.side,
           game: games[bet.gameId]
         };
@@ -75,10 +77,15 @@ export default class WagersList extends Component {
       return wagers[wagerId].bets.some(bet => {
         return document.getElementById(bet.gameId).classList.contains('live');
       });
+    }).filter(wagerId => {
+      return wagers[wagerId].bets.every(bet => {
+        return !(document.getElementById(bet.gameId).classList.contains('final') && this.isBetLosing(bet));
+      });
     }).map(wagerId => {
       const { bets, odds, amount } = wagers[wagerId];
       const betObjs = bets.map(bet => {
         return {
+          odds: bet.odds,
           side: bet.side,
           game: games[bet.gameId]
         };
@@ -101,6 +108,7 @@ export default class WagersList extends Component {
       const { bets, odds, amount } = wagers[wagerId];
       const betObjs = bets.map(bet => {
         return {
+          odds: bet.odds,
           side: bet.side,
           game: games[bet.gameId]
         };
@@ -156,5 +164,12 @@ export default class WagersList extends Component {
 
       </div>
     );
+  }
+
+  isBetLosing = (bet) => {
+    const game = this.props.games[bet.gameId];
+    const isHome = game.homeTeam === bet.side;
+
+    return parseInt(game[isHome ? 'home' : 'away']) < parseInt(game[isHome ? 'away' : 'home']);
   }
 }

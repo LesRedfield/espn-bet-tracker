@@ -15,7 +15,7 @@ export default class WagerItem extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return (JSON.stringify(this.props.game) !== JSON.stringify(nextProps.game));
+    return (JSON.stringify(this.props) !== JSON.stringify(nextProps));
   }
 
   handleDelete = () => {
@@ -43,6 +43,8 @@ export default class WagerItem extends Component {
 
     const displayBetObjs = betObjs.map(betObj => {
       const { side, game } = betObj;
+      const betOdds = betObj.odds;
+
       const awayScore = game['away'] || '-';
       const homeScore = game['home'] || '-';
       const dateTime = game['date-time'] || '-';
@@ -62,6 +64,7 @@ export default class WagerItem extends Component {
 
       return {
         gameStarted,
+        betOdds,
         game,
         side,
         teamWinP
@@ -79,8 +82,8 @@ export default class WagerItem extends Component {
     // let wagerValue = 0;
     // let teamWinP = '';
 
-    // const wagerValue = calcWagerValue(wagerObj);
-    const wagerValue = 0;
+    const wagerValue = calcWagerValue(wagerObj);
+    // const wagerValue = 0;
 
 
     const prefix = wagerValue === 0 ? '$' : wagerValue > 0 ? '+$' : '-$';
@@ -112,6 +115,9 @@ export default class WagerItem extends Component {
                   <div className={ style.wagerItemHeaderRow } >
                     <span>
                       { displayBetObj.side }
+                    </span>
+                    <span>
+                      { displayBetObj.betOdds }
                     </span>
                   </div>
                   <label>
