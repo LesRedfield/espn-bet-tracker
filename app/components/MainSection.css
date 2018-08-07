@@ -10,3 +10,13 @@
 .main h2 {
     font-size: 26px;
 }
+
+.tab {
+    overflow: hidden;
+    max-height: 400px;
+    transition: max-height 2500ms ease;
+}
+
+.hidden {
+    max-height: 0;
+}

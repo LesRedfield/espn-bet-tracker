@@ -16,6 +16,10 @@ export function updateDateTime(id, newGame) {
   return { type: types.UPDATE_DATE_TIME, id, newGame };
 }
 
+export function updateOuts(id, outs) {
+  return { type: types.UPDATE_OUTS, id, outs };
+}
+
 export function updateAwayScore(id, awayScore) {
   return { type: types.UPDATE_AWAY_SCORE, id, awayScore };
 }

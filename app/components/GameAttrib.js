@@ -35,18 +35,34 @@ export default class GameAttrib extends Component {
 
     // debugger
 
-    // account for date-time and score elements being nested at different levels of DOM
-    const valueContainer = attrib === 'date-time' ? valueParent :
-      valueParent.getElementsByClassName('total')[0].children[0];
+    let valueContainer;
 
-    // debugger
+    if (attrib === 'outs') {
+      valueContainer = document.getElementById(id).getElementsByClassName('sb-detail')[0];
+      // debugger
+    } else if (attrib === 'bases') {
+      valueContainer = document.getElementById(id).getElementsByClassName('status')[0];
+    } else if (attrib === 'date-time') {
+      valueContainer = valueParent;
+    } else {
+      valueContainer = valueParent.getElementsByClassName('total')[0].children[0];
+    }
+
+    // account for date-time and score elements being nested at different levels of DOM
+    // let valueContainer = attrib === 'date-time' ? valueParent :
+    //   valueParent.getElementsByClassName('total')[0].children[0];
+
 
     const config = { attributes: true, childList: true };
 
     if (value === "-") {
 
-      const newValue = valueContainer.innerText;
-
+      let newValue = valueContainer.innerText;
+      if (attrib === 'outs') {
+        newValue = valueContainer.getElementsByClassName('outsText')[0].innerText;
+      } else if (attrib === 'bases') {
+        newValue = valueContainer.classList[1].slice(-5);
+      }
       // debugger
 
       updateGameAttrib(id, attrib, newValue);
@@ -70,8 +86,51 @@ export default class GameAttrib extends Component {
       }
     };
 
+    const callbackOuts = function(id, value, mutationsList) {
+      for(let mutation of mutationsList) {
+        if (mutation.type == 'childList') {
+          const newValue = mutationsList[1].target.getElementsByClassName('outsText')[0].innerText;
+
+          if (this.props.value !== newValue) {
+            console.log(this.state.awayTeam + ' vs ' + this.state.homeTeam + ' ' +
+              this.props.attrib + ' from ' + this.props.value + ' to ' + newValue);
+            this.props.updateGameAttrib(id, this.props.attrib, newValue);
+          }
+        }
+        else if (mutation.type == 'attributes') {
+          // console.log('The ' + mutation.attributeName + ' attribute was modified.');
+        }
+      }
+    };
+
+    const callbackBases = function(id, value, mutationsList) {
+      for(let mutation of mutationsList) {
+        if (mutation.type == 'childList') {
+          const newValue = mutationsList[1].target.classList[1].slice(-5);
+
+          if (this.props.value !== newValue) {
+            console.log(this.state.awayTeam + ' vs ' + this.state.homeTeam + ' ' +
+              this.props.attrib + ' from ' + this.props.value + ' to ' + newValue);
+            this.props.updateGameAttrib(id, this.props.attrib, newValue);
+          }
+        }
+        else if (mutation.type == 'attributes') {
+          // console.log('The ' + mutation.attributeName + ' attribute was modified.');
+        }
+      }
+    };
+
+    let observer;
+    if (attrib === 'outs') {
+      observer = new MutationObserver(callbackOuts.bind(this, id, value));
+    } else if (attrib === 'bases') {
+      observer = new MutationObserver(callbackBases.bind(this, id, value));
+    } else {
+      observer = new MutationObserver(callback.bind(this, id, value));
+    }
+
     // Create an observer instance linked to the callback function
-    const observer = new MutationObserver(callback.bind(this, id, value));
+    // const observer = new MutationObserver(callback.bind(this, id, value));
 
     // Start observing the target node for configured mutations
     observer.observe(valueContainer, config);

@@ -50,17 +50,48 @@ export default class GameItem extends Component {
     const awayScore = game['away'] || '-';
     const homeScore = game['home'] || '-';
     const dateTime = game['date-time'] || '-';
+    const outs = game['outs'] || '-';
+    const bases = game['bases'] || '-';
     const gameStarted = (document.getElementById(game.id).classList.contains('live') ||
                         document.getElementById(game.id).classList.contains('final')) &&
                         document.getElementById(game.id).getElementsByClassName('date-time')[0]
                           .innerText !== 'POSTPONED';
+    const isFinal = document.getElementById(game.id).classList.contains('final');
+
 
     let homeWinP = 'N/A';
 
     if (gameStarted && dateTime !== 'Delayed' && dateTime !== 'POSTPONED' &&
       awayScore !== '-' && homeScore !== '-' && dateTime !== '-') {
-      homeWinP = calcHomeSpreadWinP(awayScore, homeScore, dateTime);
+      homeWinP = calcHomeSpreadWinP(awayScore, homeScore, dateTime, parseInt(outs));
     }
+
+    const lastColumn = gameStarted ? (
+      <div className={ style.gameColumn }>
+        <div>
+          { gameStarted && !isFinal &&
+          <div>
+            <div>
+              <GameAttrib
+                id={ game.id }
+                attrib="outs"
+                value={ outs }
+                updateGameAttrib={ updateGameAttrib }
+              />
+            </div>
+            < div >
+              <GameAttrib
+                id={ game.id }
+                attrib="bases"
+                value={ bases }
+                updateGameAttrib={ updateGameAttrib }
+              />
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    ) : '';
 
     const element = (
       <div className={ style.view }>
@@ -115,6 +146,8 @@ export default class GameItem extends Component {
               { gameStarted && homeWinP + '%' }
             </div>
           </div>
+
+          { lastColumn }
         </label>
         {/*<div>*/}
           {/*{ wagerForm &&*/}

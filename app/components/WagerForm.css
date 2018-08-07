@@ -12,6 +12,10 @@
     padding: 2px;
 }
 
+.hidden-form {
+    height: 0;
+}
+
 .destroy {
     color: #cc9a9a;
     transition: color 0.2s ease-out;

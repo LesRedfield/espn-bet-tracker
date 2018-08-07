@@ -82,42 +82,48 @@ export default class WagerForm extends Component {
           </div>
         </div>
         <form onSubmit={ this.handleAddWager } >
-          <div className={ style.wagerFormBody } >
-            <div className={ style.wagerFormColumn } >
+          {
+            !!bets.length && (
               <div>
-                Odds
-              </div>
-              <div>
-                <input
-                  name="odds"
-                  type="number"
-                  value={ odds }
-                  onChange={ this.handleInputChange }
+                <div className={ style.wagerFormBody } >
+                  <div className={ style.wagerFormColumn } >
+                    <div>
+                      Odds
+                    </div>
+                    <div>
+                      <input
+                        name="odds"
+                        type="number"
+                        value={ odds }
+                        onChange={ this.handleInputChange }
+                      />
+                    </div>
+                  </div>
+                  <div className={ style.wagerFormColumn } >
+                    <div>
+                      Amount
+                    </div>
+                    <div>
+                      <input
+                        name="amount"
+                        type="number"
+                        placeholder="$"
+                        value={ amount }
+                        onChange={ this.handleInputChange }
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className={ style.wagerFormFooter } >
+                  <input type="submit" value="Submit" />
+                </div>
+                <button
+                  className={ style.destroy }
+                  onClick={ clearWagerForm }
                 />
               </div>
-            </div>
-            <div className={ style.wagerFormColumn } >
-              <div>
-                Amount
-              </div>
-              <div>
-                <input
-                  name="amount"
-                  type="number"
-                  placeholder="$"
-                  value={ amount }
-                  onChange={ this.handleInputChange }
-                />
-              </div>
-            </div>
-          </div>
-          <div className={ style.wagerFormFooter } >
-            <input type="submit" value="Submit" />
-          </div>
-          <button
-            className={ style.destroy }
-            onClick={ clearWagerForm }
-          />
+            )
+          }
         </form>
       </div>
     );

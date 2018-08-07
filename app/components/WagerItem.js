@@ -48,6 +48,7 @@ export default class WagerItem extends Component {
       const awayScore = game['away'] || '-';
       const homeScore = game['home'] || '-';
       const dateTime = game['date-time'] || '-';
+      const outs = game['outs'] || '-';
 
       const gameStarted = (document.getElementById(game.id).classList.contains('live') ||
         document.getElementById(game.id).classList.contains('final')) &&
@@ -58,7 +59,7 @@ export default class WagerItem extends Component {
 
       if (gameStarted && dateTime !== "Delayed" && dateTime !== "POSTPONED" &&
         awayScore !== '-' && homeScore !== '-' && dateTime !== '-') {
-        const homeWinP = calcHomeSpreadWinP(parseInt(awayScore), parseInt(homeScore), dateTime);
+        const homeWinP = calcHomeSpreadWinP(parseInt(awayScore), parseInt(homeScore), dateTime, parseInt(outs));
         teamWinP = side === game.homeTeam ? homeWinP : Math.round((100 - homeWinP) * 100) / 100;
       }
 

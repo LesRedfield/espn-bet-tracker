@@ -1,6 +1,6 @@
 import { winP } from '../constants/WinProbs';
 
-export function calcHomeSpreadWinP(awayScore, homeScore, dateTime, homePointSpread = 0) {
+export function calcHomeSpreadWinP(awayScore, homeScore, dateTime, outs, homePointSpread = 0) {
   let netHomeScore = parseInt(homeScore) + parseFloat(homePointSpread) - parseInt(awayScore);
   if (netHomeScore > 15) {
     netHomeScore = 15;
@@ -16,6 +16,12 @@ export function calcHomeSpreadWinP(awayScore, homeScore, dateTime, homePointSpre
   let innBaseOut = (inning2 === "Mid" || inning2 === "Bot") ?
     (1000 * inning1) + 210 : inning2 === "Top" ?
       (1000 * inning1) + 110 : (1000 * (inning1 + 1)) + 110;
+
+  if (outs === 1) {
+    innBaseOut += 1;
+  } else if (outs > 1) {
+    innBaseOut += 2;
+  }
 
   if (innBaseOut > 10000) {
     innBaseOut -= 1000;
@@ -42,6 +48,7 @@ export function calcWagerValue(wagerObj) {
     const awayScore = game['away'] || '-';
     const homeScore = game['home'] || '-';
     const dateTime = game['date-time'] || '-';
+    const outs = game['outs'] || '-';
 
     const gameStarted = (document.getElementById(game.id).classList.contains('live') ||
       document.getElementById(game.id).classList.contains('final')) &&
@@ -49,7 +56,7 @@ export function calcWagerValue(wagerObj) {
         .innerText !== 'POSTPONED';
     if (gameStarted && dateTime !== "Delayed" && dateTime !== "POSTPONED" &&
       awayScore !== '-' && homeScore !== '-' && dateTime !== '-') {
-      const homeWinP = calcHomeSpreadWinP(parseInt(awayScore), parseInt(homeScore), dateTime);
+      const homeWinP = calcHomeSpreadWinP(parseInt(awayScore), parseInt(homeScore), dateTime, parseInt(outs));
       return side === game.homeTeam ? homeWinP : Math.round((100 - homeWinP) * 100) / 100;
     } else {
       return oddsToWinP(betObj.odds); //replace with betOdds win%

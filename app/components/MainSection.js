@@ -61,27 +61,34 @@ export default class MainSection extends Component {
 
     const { bets } = this.state;
 
+    let formClass = style.tab;
+    let dashClass = style.tab;
+    if (bets.length > 0) {
+      // dashClass += ' ' + style.hidden;
+    } else {
+      formClass += ' ' + style.hidden;
+    }
+
     return (
       <section className={ style.main }>
         <h1>
           ESPN Bet Tracker
         </h1>
-          {
-            bets.length > 0 ? (
-              <WagerForm
-                bets={ bets }
-                addWager={ wagerActions.addWager }
-                clearWagerForm={ this.clearWagerForm }
-              />
-            ) : (
-              <Dashboard
-                games={ games }
-                wagers={ wagers }
-                wagerActions={ wagerActions }
-                bets={ this.state.bets }
-              />
-            )
-          }
+        <div className={ dashClass }>
+          <Dashboard
+            games={ games }
+            wagers={ wagers }
+            wagerActions={ wagerActions }
+            bets={ this.state.bets }
+          />
+        </div>
+        <div className={ formClass }>
+          <WagerForm
+            bets={ bets }
+            addWager={ wagerActions.addWager }
+            clearWagerForm={ this.clearWagerForm }
+          />
+        </div>
         <GamesList
           games={ games }
           gameActions={ gameActions }

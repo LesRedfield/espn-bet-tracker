@@ -11,7 +11,8 @@ const actionsMap = {
         id: action.id,
         awayTeam: action.awayTeam,
         homeTeam: action.homeTeam,
-        'date-time': '-'
+        'date-time': '-',
+        outs: '-'
       }
     }
   },
