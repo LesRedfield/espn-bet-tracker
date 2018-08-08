@@ -17,6 +17,7 @@
 .wagerListContainer {
     border: 1px solid black;
     margin: 2px;
+    background-color: rgb(227, 221, 221);
 }
 
 .wagerListContainer h2 {
@@ -26,4 +27,5 @@
 .wagerMetricsContainer {
     border: 1px solid black;
     margin: 2px;
+    background-color: rgb(227, 221, 221);
 }

@@ -2,6 +2,7 @@
     border: 1px solid black;
     margin: 2px;
     margin-top: 30px;
+    background-color: rgb(227, 221, 221);
 }
 
 .gameListOuter h1 {
@@ -18,6 +19,7 @@
     margin: 2px;
     padding: 2px;
     border: 1px solid black;
+    background-color: rgb(161, 181, 197);
 }
 
 .gameListRow h2 {
@@ -32,6 +34,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    background-color: rgb(202, 211, 219);
 }
 
 .gameList li {
@@ -40,8 +43,10 @@
     /*border-bottom: 1px solid #ededed;*/
     /*width: calc(100% / 3);*/
     border: 1px solid black;
+    border-radius: 4px;
     margin: 2px;
     width: calc((100% / 3) - 10px);
+    background-color: rgb(227, 221, 221);
 }
 
 .gameList li:last-child {

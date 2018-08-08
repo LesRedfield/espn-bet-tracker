@@ -2,10 +2,20 @@
     border: 1px solid black;
     margin: 2px;
     font-size: 26px;
+    background-color: rgb(232, 232, 232);
 }
 
 .wagerMetricTitle {
     border: 1px solid black;
     margin: 2px;
     font-size: 20px;
+    background-color: rgb(161, 181, 197);
+}
+
+.winner {
+    background-color: rgb(229, 247, 229);
+}
+
+.loser {
+    background-color: rgb(247, 229, 229);
 }

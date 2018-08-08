@@ -66,82 +66,119 @@ export default class WagerItem extends Component {
     const displayVal = wagerValue === parseInt(wagerValue) ?
       Math.abs(wagerValue) : Math.abs(wagerValue).toFixed(2);
 
-    return (
-      <li className={ style.normal }>
-        <div className={ style.wagerItemHeader } >
-          <div className={ style.wagerItemHeaderRow } >
+    const numBets = displayBetObjs.length;
+    const isParlay = numBets > 1;
+    const displayOdds = odds > 0 ? '+' + odds : odds;
+    const wagerClass = wagerValue > 0 ? style.winner : wagerValue < 0 ? style.loser : style.push;
+
+    const header = isParlay ? (
+      <div className={ style.wagerItemHeader } >
+        <div className={ style.wagerItemHeaderRow } >
+          <span>
+            { prefix + displayVal }
+          </span>
+          <span>
+            { wagerWinP + '%' }
+          </span>
+          <button
+            className={ style.destroy }
+            onClick={ this.handleDelete }
+          />
+        </div>
+        <div className={ style.wagerItemHeaderRow } >
+          <span>
+            { '$' + amount + ' ' + numBets + '-team Parlay (' + displayOdds + ')' }
+          </span>
+        </div>
+      </div>
+    ) : (
+      <div className={ style.wagerItemHeader } >
+        <div className={ style.wagerItemHeaderRow } >
             <span>
               { prefix + displayVal }
             </span>
-            <span>
+          <span>
               { wagerWinP + '%' }
             </span>
-            <button
-              className={ style.destroy }
-              onClick={ this.handleDelete }
-            />
-          </div>
-          <div className={ style.wagerItemHeaderRow } >
+          <button
+            className={ style.destroy }
+            onClick={ this.handleDelete }
+          />
+        </div>
+        <div className={ style.wagerItemHeaderRow } >
             <span>
               { odds > 0 ? '+' + odds : odds }
             </span>
-            <span>$
-              { amount }
+          <span>$
+            { amount }
             </span>
-          </div>
         </div>
-        <div>
-          {
-            displayBetObjs.map((displayBetObj, idx) =>
-              <div className={ style.betItem } key={ idx } >
-                <div className={ style.wagerItemHeaderRow } >
-                  <span>
-                    { displayBetObj.side }
-                  </span>
-                  <span>
-                    { displayBetObj.betOdds }
-                  </span>
-                </div>
-                <label>
-                  <div>
-                    <div>
-                      { displayBetObj.game.awayTeam }
-                    </div>
-                    <div>
-                      { displayBetObj.game.homeTeam }
-                    </div>
-                  </div>
+      </div>
+    );
 
-                  <div>
-                    { displayBetObj.gameStarted &&
-                    <div>
-                      <div>
-                        { displayBetObj.game.away || '-' }
-                      </div>
-                      <div>
-                        { displayBetObj.game.home || '-' }
-                      </div>
-                    </div>
-                    }
-                  </div>
+    const betList = displayBetObjs.map((displayBetObj, idx) => {
+      let betClass = style.betItem;
+      if (displayBetObj.teamWinP === 100) {
+        betClass += (' ' + style.winner);
+      } else if (displayBetObj.teamWinP === 0) {
+        betClass += (' ' + style.loser);
+      }
 
-                  <div>
-                    { displayBetObj.gameStarted &&
-                    <div>
-                      <div>
-                        { displayBetObj.game['date-time'] || '-' }
-                      </div>
-                      <div>
-                        { displayBetObj.teamWinP + '%' }
-                      </div>
-                    </div>
-                    }
-                  </div>
-                </label>
-
+      return (
+        <div className={betClass}
+             key={ idx }>
+          <label>
+            <div>
+              <div>
+                {
+                  displayBetObj.game.awayTeam +
+                  (displayBetObj.game.awayTeam === displayBetObj.side ? ' (' + displayBetObj.betOdds + ')' : '')
+                }
               </div>
-            )
-          }
+              <div>
+                {
+                  displayBetObj.game.homeTeam +
+                  (displayBetObj.game.homeTeam === displayBetObj.side ? ' (' + displayBetObj.betOdds + ')' : '')
+                }
+              </div>
+            </div>
+
+            <div>
+              {displayBetObj.gameStarted &&
+              <div>
+                <div>
+                  {displayBetObj.game.away || '-'}
+                </div>
+                <div>
+                  {displayBetObj.game.home || '-'}
+                </div>
+              </div>
+              }
+            </div>
+
+            <div>
+              {displayBetObj.gameStarted &&
+              <div>
+                <div>
+                  {displayBetObj.game['date-time'] || '-'}
+                </div>
+                <div>
+                  {displayBetObj.teamWinP + '%'}
+                </div>
+              </div>
+              }
+            </div>
+          </label>
+        </div>
+      );
+
+    });
+
+    return (
+      <li className={ wagerClass }>
+        { header }
+        <div>
+          {betList}
         </div>
       </li>
     );

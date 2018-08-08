@@ -6,7 +6,7 @@ import './espnbettracker.css';
 window.addEventListener('load', () => {
   console.log('inject js running');
 
-  const scoreboardPage = document.getElementById('scoreboard-page');
+  const scoreboardPage = document.getElementById('main-container');
 
   const injectDOM = document.createElement('div');
 

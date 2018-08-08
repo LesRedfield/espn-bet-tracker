@@ -20,9 +20,16 @@ export default class WagerMetric extends Component {
     const displayVal = value === parseInt(value) ?
       Math.abs(value) : Math.abs(value).toFixed(2);
 
+    let valClass = style.wagerMetricValue;
+    if (value > 0) {
+      valClass += ' ' + style.winner;
+    } else if (value < 0) {
+      valClass += ' ' + style.loser;
+    }
+
     return (
       <div>
-        <div className={ style.wagerMetricValue } >
+        <div className={ valClass } >
           { prefix + displayVal }
         </div>
         <div className={ style.wagerMetricTitle } >

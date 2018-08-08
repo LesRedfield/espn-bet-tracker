@@ -5,6 +5,7 @@
     border: 1px solid black;
     display: flex;
     justify-content: space-around;
+    background-color: rgb(202, 211, 219);
 }
 
 .wagerListColumn {
@@ -15,8 +16,10 @@
 
 .wagerListColumn h2 {
     border: 1px solid black;
+    border-radius: 4px;
     margin: 2px;
     font-size: 20px;
+    background-color: rgb(161, 181, 197);
 }
 
 .noWagers {
@@ -30,6 +33,7 @@
     /*border-bottom: 1px solid #ededed;*/
     border: 1px solid black;
     margin: 2px;
+    background-color: rgb(227, 221, 221);
 }
 
 .wagerList li:last-child {

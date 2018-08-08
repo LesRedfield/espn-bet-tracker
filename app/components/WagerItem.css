@@ -25,5 +25,18 @@
 
 .betItem {
     border: 1px solid black;
-    margin: 4px;
+    border-radius: 4px;
+    margin: 2px 2px 2px 16px;
+}
+
+.winner {
+    background-color: rgb(229, 247, 229);
+}
+
+.loser {
+    background-color: rgb(247, 229, 229);
+}
+
+.push {
+    background-color: rgb(232, 232, 232);
 }
