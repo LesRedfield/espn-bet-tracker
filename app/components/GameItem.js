@@ -63,7 +63,7 @@ export default class GameItem extends Component {
 
     if (gameStarted && dateTime !== 'Delayed' && dateTime !== 'POSTPONED' &&
       awayScore !== '-' && homeScore !== '-' && dateTime !== '-') {
-      homeWinP = calcHomeSpreadWinP(awayScore, homeScore, dateTime, parseInt(outs));
+      homeWinP = calcHomeSpreadWinP(awayScore, homeScore, dateTime, parseInt(outs), bases);
     }
 
     const lastColumn = gameStarted ? (

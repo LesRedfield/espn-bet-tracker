@@ -41,7 +41,7 @@ export default class GameAttrib extends Component {
       valueContainer = document.getElementById(id).getElementsByClassName('sb-detail')[0];
       // debugger
     } else if (attrib === 'bases') {
-      valueContainer = document.getElementById(id).getElementsByClassName('status')[0];
+      valueContainer = document.getElementById(id).getElementsByClassName('sb-detail')[0];
     } else if (attrib === 'date-time') {
       valueContainer = valueParent;
     } else {
@@ -61,7 +61,7 @@ export default class GameAttrib extends Component {
       if (attrib === 'outs') {
         newValue = valueContainer.getElementsByClassName('outsText')[0].innerText;
       } else if (attrib === 'bases') {
-        newValue = valueContainer.classList[1].slice(-5);
+        newValue = valueContainer.getElementsByClassName('status')[0].classList[1].slice(-5);
       }
       // debugger
 
@@ -89,9 +89,9 @@ export default class GameAttrib extends Component {
     const callbackOuts = function(id, value, mutationsList) {
       for(let mutation of mutationsList) {
         if (mutation.type == 'childList') {
-          const newValue = mutationsList[1].target.getElementsByClassName('outsText')[0].innerText;
+          const newValue = mutationsList[1] ? mutationsList[1].target.getElementsByClassName('outsText')[0].innerText : mutationsList[1];
 
-          if (this.props.value !== newValue) {
+          if (mutationsList[1] && this.props.value !== newValue) {
             console.log(this.state.awayTeam + ' vs ' + this.state.homeTeam + ' ' +
               this.props.attrib + ' from ' + this.props.value + ' to ' + newValue);
             this.props.updateGameAttrib(id, this.props.attrib, newValue);
@@ -106,9 +106,10 @@ export default class GameAttrib extends Component {
     const callbackBases = function(id, value, mutationsList) {
       for(let mutation of mutationsList) {
         if (mutation.type == 'childList') {
-          const newValue = mutationsList[1].target.classList[1].slice(-5);
+          // console.log(mutationsList[1].target.getElementsByClassName('status')[0]);
+          const newValue = mutationsList[1] ? mutationsList[1].target.getElementsByClassName('status')[0].classList[1].slice(-5) : mutationsList[1];
 
-          if (this.props.value !== newValue) {
+          if (mutationsList[1] && this.props.value !== newValue) {
             console.log(this.state.awayTeam + ' vs ' + this.state.homeTeam + ' ' +
               this.props.attrib + ' from ' + this.props.value + ' to ' + newValue);
             this.props.updateGameAttrib(id, this.props.attrib, newValue);
