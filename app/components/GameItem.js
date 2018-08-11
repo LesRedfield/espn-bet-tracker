@@ -29,21 +29,6 @@ export default class GameItem extends Component {
       // || this.state.wagerForm !== nextState.wagerForm;
   }
 
-  // toggleWagerForm = () => {
-  //   this.setState(prevState => ({
-  //     wagerForm: !prevState.wagerForm
-  //   }));
-  // };
-
-  // handleAddTeam = (gameId, addTeam) => {
-  //   this.setState({
-  //     gameId,
-  //     addTeam
-  //   });
-  //
-  //   this.toggleWagerForm();
-  // };
-
   render() {
     const { game, updateGameAttrib, addBet } = this.props;
     // const { wagerForm, addTeam } = this.state;
@@ -57,7 +42,6 @@ export default class GameItem extends Component {
                         document.getElementById(game.id).getElementsByClassName('date-time')[0]
                           .innerText !== 'POSTPONED';
     const isFinal = document.getElementById(game.id).classList.contains('final');
-
 
     let homeWinP = 'N/A';
 
@@ -79,7 +63,7 @@ export default class GameItem extends Component {
                 updateGameAttrib={ updateGameAttrib }
               />
             </div>
-            < div >
+            <div>
               <GameAttrib
                 id={ game.id }
                 attrib="bases"

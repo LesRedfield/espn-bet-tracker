@@ -36,7 +36,7 @@ window.addEventListener('load', () => {
 
 
   // (FOR DEV) => clear state in local storage each page reload
-  chrome.storage.local.set({ state: JSON.stringify({  }) });
+  // chrome.storage.local.set({ state: JSON.stringify({  }) });
 
 
   chrome.storage.local.get('state', (obj) => {
@@ -45,6 +45,10 @@ window.addEventListener('load', () => {
     const initialState = JSON.parse(state || '{}');
 
     const createStore = require('../../app/store/configureStore');
+
+    initialState.games = {};
+
+    console.log(initialState);
 
     render(
       <Root store={createStore(initialState)} />,

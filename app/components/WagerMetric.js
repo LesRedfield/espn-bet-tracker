@@ -27,15 +27,14 @@ export default class WagerMetric extends Component {
       valClass += ' ' + style.loser;
     }
 
+    if (title === 'Current') {
+      valClass += ' ' + style.current;
+    }
+
     return (
-      <div>
         <div className={ valClass } >
           { prefix + displayVal }
         </div>
-        <div className={ style.wagerMetricTitle } >
-          { title }
-        </div>
-      </div>
     );
   }
 }

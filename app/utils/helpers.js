@@ -9,6 +9,9 @@ export function calcHomeSpreadWinP(awayScore, homeScore, dateTime, outs, bases, 
   if (netHomeScore < -15) {
     netHomeScore = -15;
   }
+  if (dateTime === "FINAL" || dateTime === "Final" || dateTime.slice(0, 5) === "FINAL") {
+    return netHomeScore > 0 ? 100 : 0;
+  }
 
   let inning1 = parseInt(dateTime[4]);
   if (!isNaN(parseInt(dateTime[5]))) {
@@ -43,9 +46,7 @@ export function calcHomeSpreadWinP(awayScore, homeScore, dateTime, outs, bases, 
 
   console.log(netHomeScore, BASE_CODES[basesKey], innBaseOut);
 
-  if (dateTime === "FINAL" || dateTime === "Final" || dateTime.slice(0, 5) === "FINAL") {
-    return netHomeScore > 0 ? 100 : 0;
-  } else if (netHomeScore === parseInt(netHomeScore)) {
+  if (netHomeScore === parseInt(netHomeScore)) {
     return winP[innBaseOut][netHomeScore];
   } else {
     return Math.round(

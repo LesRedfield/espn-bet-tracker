@@ -30,7 +30,7 @@ export default class WagerItem extends Component {
 
     const displayBetObjs = betObjs.map(betObj => {
       const { side, game } = betObj;
-      const betOdds = betObj.odds;
+      const betOdds = betObj.odds  > 0 ? '+' + betObj.odds : betObj.odds;;
 
       const awayScore = game['away'] || '-';
       const homeScore = game['home'] || '-';
@@ -74,44 +74,55 @@ export default class WagerItem extends Component {
     const header = isParlay ? (
       <div className={ style.wagerItemHeader } >
         <div className={ style.wagerItemHeaderRow } >
-          <span>
+          <span className={ style.wagerValue }>
             { prefix + displayVal }
           </span>
-          <span>
-            { wagerWinP + '%' }
+          <span className={ style.wagerDetails }>
+            <div className={ style.wagerType }>
+              { numBets + '-TEAM PARLAY' }
+            </div>
+            <div className={ style.wagerMetrics }>
+              <span>
+                { wagerWinP + '%' }
+              </span>
+              <span>$
+                { amount }
+              </span>
+              <span>
+                { odds > 0 ? '+' + odds : odds }
+              </span>
+            </div>
           </span>
-          <button
-            className={ style.destroy }
-            onClick={ this.handleDelete }
-          />
-        </div>
-        <div className={ style.wagerItemHeaderRow } >
-          <span>
-            { '$' + amount + ' ' + numBets + '-team Parlay (' + displayOdds + ')' }
-          </span>
+          <button className={ style.destroy }
+                  onClick={ this.handleDelete } >X
+          </button>
         </div>
       </div>
     ) : (
       <div className={ style.wagerItemHeader } >
         <div className={ style.wagerItemHeaderRow } >
-            <span>
-              { prefix + displayVal }
-            </span>
-          <span>
-              { wagerWinP + '%' }
-            </span>
-          <button
-            className={ style.destroy }
-            onClick={ this.handleDelete }
-          />
-        </div>
-        <div className={ style.wagerItemHeaderRow } >
-            <span>
-              { odds > 0 ? '+' + odds : odds }
-            </span>
-          <span>$
-            { amount }
-            </span>
+          <span className={ style.wagerValue }>
+            { prefix + displayVal }
+          </span>
+          <span className={ style.wagerDetails }>
+            <div className={ style.wagerType }>
+              STRAIGHT BET
+            </div>
+            <div className={ style.wagerMetrics }>
+              <span>
+                { wagerWinP + '%' }
+              </span>
+              <span>$
+                { amount }
+              </span>
+              <span>
+                { odds > 0 ? '+' + odds : odds }
+              </span>
+            </div>
+          </span>
+          <button className={ style.destroy }
+                  onClick={ this.handleDelete } >X
+          </button>
         </div>
       </div>
     );
@@ -124,18 +135,26 @@ export default class WagerItem extends Component {
         betClass += (' ' + style.loser);
       }
 
+      let awayClass = '';
+      let homeClass = '';
+      if (displayBetObj.game.awayTeam === displayBetObj.side) {
+        awayClass = style.betTeam;
+      } else if (displayBetObj.game.homeTeam === displayBetObj.side) {
+        homeClass = style.betTeam;
+      }
+
       return (
         <div className={betClass}
              key={ idx }>
           <label>
             <div>
-              <div>
+              <div className={ awayClass } >
                 {
                   displayBetObj.game.awayTeam +
                   (displayBetObj.game.awayTeam === displayBetObj.side ? ' (' + displayBetObj.betOdds + ')' : '')
                 }
               </div>
-              <div>
+              <div className={ homeClass } >
                 {
                   displayBetObj.game.homeTeam +
                   (displayBetObj.game.homeTeam === displayBetObj.side ? ' (' + displayBetObj.betOdds + ')' : '')
@@ -146,10 +165,10 @@ export default class WagerItem extends Component {
             <div>
               {displayBetObj.gameStarted &&
               <div>
-                <div>
+                <div className={ awayClass } >
                   {displayBetObj.game.away || '-'}
                 </div>
-                <div>
+                <div className={ homeClass } >
                   {displayBetObj.game.home || '-'}
                 </div>
               </div>

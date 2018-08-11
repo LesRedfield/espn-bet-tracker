@@ -1,10 +1,24 @@
 .wagerMetricsContainer {
-    border: 1px solid black;
-    margin: 2px;
+    /*border: 1px solid black;*/
+    /*margin: 2px;*/
     display: flex;
     justify-content: space-around;
 }
 
 .wagerMetricContainer {
     width: 100%;
+}
+
+.metricsOuter {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.leftColumn {
+    width: 66.66%;
+}
+
+.rightColumn {
+    width: 33.33%;
 }

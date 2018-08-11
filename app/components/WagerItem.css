@@ -1,18 +1,26 @@
 .wagerItemHeader {
-    border: 1px solid black;
-    margin: 2px;
+    /*border: 1px solid black;*/
+    /*margin: 2px;*/
 }
 
 .wagerItemHeaderRow {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 }
 
 .wagerItemHeader .destroy {
     color: #cc9a9a;
     transition: color 0.2s ease-out;
-    margin: 2px;
+    /*margin: 2px;*/
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+    padding: 0;
+    border-radius: 2px;
 }
 
 .wagerItemHeader .destroy:hover {
@@ -20,13 +28,40 @@
 }
 
 .wagerItemHeader .destroy:after {
-    content: '×';
+    /*content: '×';*/
+}
+
+.wagerValue {
+    font-size: 24px;
+    padding-left: 5px;
+}
+
+.wagerType {
+    line-height: 8px;
+    font-size: 8px;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+.wagerDetails {
+    flex-grow: 1;
+    padding: 0 20px 0 5px;
+}
+
+.wagerMetrics {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .betItem {
-    border: 1px solid black;
+    border: 1px solid grey;
     border-radius: 4px;
+    box-shadow: -2px -1px 1px grey;
     margin: 2px 2px 2px 16px;
+    background-color: rgb(232, 232, 232);
+    font-size: 12px;
+    padding: 1px 0 2px 0;
 }
 
 .winner {
@@ -39,4 +74,8 @@
 
 .push {
     background-color: rgb(232, 232, 232);
+}
+
+.betTeam {
+    font-weight: bold;
 }

@@ -1,25 +1,26 @@
 .wagerList {
-    margin: 2px;
+    margin: 2px 4px;
     padding: 0;
     list-style: none;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     display: flex;
     justify-content: space-around;
     background-color: rgb(202, 211, 219);
 }
 
 .wagerListColumn {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     margin: 2px;
     width: 100%;
 }
 
 .wagerListColumn h2 {
-    border: 1px solid black;
+    border: 1px solid grey;
     border-radius: 4px;
-    margin: 2px;
     font-size: 20px;
     background-color: rgb(161, 181, 197);
+    box-shadow: -2px -1px 1px grey;
+    margin: 2px 2px 2px 4px;
 }
 
 .noWagers {
@@ -31,9 +32,11 @@
     position: relative;
     font-size: 16px;
     /*border-bottom: 1px solid #ededed;*/
-    border: 1px solid black;
-    margin: 2px;
-    background-color: rgb(227, 221, 221);
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin: 5px 5px 5px 9px;
+    box-shadow: -2px -1px 1px grey;
+    /*background-color: rgb(227, 221, 221);*/
 }
 
 .wagerList li:last-child {
@@ -43,13 +46,13 @@
 .wagerList li label {
     white-space: pre-line;
     word-break: break-all;
-    padding: 5px 5px 5px 5px;
     /*margin-left: 45px;*/
     display: flex;
     justify-content: space-around;
     line-height: 1.2;
     transition: color 0.4s;
     text-align: left;
+    padding: 2px 0;
 }
 
 .wagerItemColumn {

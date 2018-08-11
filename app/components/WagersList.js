@@ -155,7 +155,6 @@ export default class WagersList extends Component {
 
     return (
       <div>
-        <h2>My Wagers</h2>
         <div className={ style.wagerList } >
           {
             wagerListElements

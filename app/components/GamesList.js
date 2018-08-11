@@ -8,11 +8,16 @@ export default class GamesList extends Component {
     games: PropTypes.object.isRequired,
     gameActions: PropTypes.object.isRequired,
     // addWager: PropTypes.func.isRequired,
-    addBet: PropTypes.func.isRequired
+    addBet: PropTypes.func.isRequired,
+    gamesLoaded: PropTypes.func.isRequired
   };
 
   constructor(props, context) {
     super(props, context);
+  }
+
+  componentDidMount() {
+    this.props.gamesLoaded();
   }
 
   render() {
@@ -41,36 +46,30 @@ export default class GamesList extends Component {
     const gameLists = [activeGames, completedGames, pendingGames];
 
     const gameListElements = (
-      gameLists.map((gameList, idx) =>
-        gameList.length > 0 ? (
-          <div key={ idx } className={ style.gameListRow }>
-            <h2>{ listNames[idx] }</h2>
-            <ul className={ style.gameList }>
-              {
-                gameList.map(game =>
-                  <GameItem
-                    key={ game.id }
-                    game={ game }
-                    { ...gameActions }
-                    // addWager={ addWager }
-                    addBet={ addBet }
-                  />
-                )
-              }
-            </ul>
-          </div>
-        ) : (
-          <div key={ idx }/>
-        )
-      )
+      <ul className={ style.gameList }>
+        {
+          gameLists.map((gameList, idx) =>
+            gameList.length > 0 ? (
+              gameList.map(game =>
+                <GameItem
+                  key={ game.id }
+                  game={ game }
+                  { ...gameActions }
+                  // addWager={ addWager }
+                  addBet={ addBet }
+                />
+              )
+            ) : (
+              <div key={ idx }/>
+            )
+          )
+        }
+      </ul>
     );
 
     return (
       <div className={ style.gameListOuter } >
-        <h1>Today's Games</h1>
-        <div className={ style.gameListInner } >
-          { gameListElements }
-        </div>
+        { gameListElements }
       </div>
     );
   }

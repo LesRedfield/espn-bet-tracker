@@ -3,11 +3,19 @@
     padding-right: 10px;
 }
 
+.gameColumn:first-child {
+    width: 50%;
+}
+
 .gameColumn:last-child {
     padding-right: 0;
 }
 
+.addTeam {
+    border-radius: 5px;
+}
+
 .addTeam:hover {
-    background-color: lawngreen;
+    background-color: #6b8fddc2;
     cursor: pointer;
 }

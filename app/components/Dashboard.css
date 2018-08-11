@@ -1,8 +1,8 @@
 .dashboard {
     /*height: 500px;*/
     height: 100%;
-    border: 1px solid black;
-    margin: 2px;
+    /*border: 1px solid black;*/
+    /*margin: 2px;*/
     transition: height 1000ms ease;
 }
 
@@ -15,9 +15,9 @@
 }
 
 .wagerListContainer {
-    border: 1px solid black;
-    margin: 2px;
-    background-color: rgb(227, 221, 221);
+    /*border: 1px solid black;*/
+    /*margin: 2px;*/
+    /*background-color: rgb(227, 221, 221);*/
 }
 
 .wagerListContainer h2 {
@@ -25,7 +25,7 @@
 }
 
 .wagerMetricsContainer {
-    border: 1px solid black;
-    margin: 2px;
-    background-color: rgb(227, 221, 221);
+    /*border: 1px solid black;*/
+    /*margin: 2px;*/
+    /*background-color: rgb(227, 221, 221);*/
 }

@@ -1,8 +1,10 @@
 .main {
-    border: 1px solid black;
+    border: 1px solid grey;
     border-radius: 5px;
-    margin: 10px;
+    box-shadow: -2px -1px 1px grey;
+    margin: 0 10px 10px 10px;
     background-color: rgb(202, 211, 219);
+    min-width: 800px;
 }
 
 .main h1 {
@@ -11,6 +13,11 @@
 
 .main h2 {
     font-size: 26px;
+    border-radius: 5px;
+    margin: 2px 2px 2px 4px;
+    box-shadow: -2px -1px 1px grey;
+    border: 1px solid grey;
+    padding-bottom: 4px;
 }
 
 .tab {

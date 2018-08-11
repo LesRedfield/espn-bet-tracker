@@ -9,7 +9,8 @@ export default class Dashboard extends Component {
   static propTypes = {
     games: PropTypes.object.isRequired,
     wagers: PropTypes.object.isRequired,
-    wagerActions: PropTypes.object.isRequired
+    wagerActions: PropTypes.object.isRequired,
+    gamesLoaded: PropTypes.bool.isRequired
   };
 
   constructor(props, context) {
@@ -17,13 +18,17 @@ export default class Dashboard extends Component {
   }
 
   render() {
+    if (!this.props.gamesLoaded) {
+      return (
+        <div>
+          Games Loading
+        </div>
+      );
+    }
     const { games, wagers, wagerActions } = this.props;
 
     return (
       <div className={ style.dashboard }>
-        {/*<h1>*/}
-          {/*ESPN Bet Tracker*/}
-        {/*</h1>*/}
         <div className={ style.wagerMetricsContainer } >
           <WagerMetrics
             wagers={ wagers }

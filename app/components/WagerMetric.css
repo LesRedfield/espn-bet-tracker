@@ -1,12 +1,14 @@
 .wagerMetricValue {
-    border: 1px solid black;
-    margin: 2px;
+    border: 1px solid grey;
+    margin: 3px 6px 3px 9px;
+    border-radius: 5px;
+    box-shadow: -2px -1px 1px grey;
     font-size: 26px;
     background-color: rgb(232, 232, 232);
 }
 
 .wagerMetricTitle {
-    border: 1px solid black;
+    border: 1px solid grey;
     margin: 2px;
     font-size: 20px;
     background-color: rgb(161, 181, 197);
@@ -18,4 +20,10 @@
 
 .loser {
     background-color: rgb(247, 229, 229);
+}
+
+.current {
+    height: 90%;
+    font-size: 54px;
+    margin: 5px;
 }

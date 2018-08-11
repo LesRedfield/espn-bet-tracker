@@ -63,7 +63,6 @@ export default class GameAttrib extends Component {
       } else if (attrib === 'bases') {
         newValue = valueContainer.getElementsByClassName('status')[0].classList[1].slice(-5);
       }
-      // debugger
 
       updateGameAttrib(id, attrib, newValue);
     }

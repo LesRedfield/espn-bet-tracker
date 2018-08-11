@@ -17,7 +17,8 @@ export default class MainSection extends Component {
     super(props, context);
 
     this.state = {
-      bets: []
+      bets: [],
+      gamesLoaded: false
     };
   }
 
@@ -54,6 +55,12 @@ export default class MainSection extends Component {
     });
   };
 
+  gamesLoaded = () => {
+    this.setState({
+      gamesLoaded: true
+    });
+  };
+
   //need remove bet from wager form function
 
   render() {
@@ -71,15 +78,13 @@ export default class MainSection extends Component {
 
     return (
       <section className={ style.main }>
-        <h1>
-          ESPN Bet Tracker
-        </h1>
         <div className={ dashClass }>
           <Dashboard
             games={ games }
             wagers={ wagers }
             wagerActions={ wagerActions }
             bets={ this.state.bets }
+            gamesLoaded={ this.state.gamesLoaded }
           />
         </div>
         <div className={ formClass }>
@@ -94,6 +99,7 @@ export default class MainSection extends Component {
           gameActions={ gameActions }
           // addWager={ wagerActions.addWager }
           addBet={ this.addBet }
+          gamesLoaded={ this.gamesLoaded }
         />
       </section>
     );
